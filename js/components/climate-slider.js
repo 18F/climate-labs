@@ -74,9 +74,16 @@
       var value = min + left(x) * (max - min);
       // console.info('value:', e.layerX, e.pageX, value, '<=', rect.width);
       this.value = value;
+
+      // prevent text selection on drag
+      e.preventDefault();
     }).bind(this);
 
+    this.setAttribute('aria-grabbed', true);
+
     var detach = (function(e) {
+      this.setAttribute('aria-grabbed', false);
+
       // console.info('detach', e);
       window.removeEventListener('mousemove', update);
       window.removeEventListener('touchmove', update);
@@ -99,8 +106,16 @@
     ].join(''),
 
     lifecycle: {
+      created: function() {
+        this.setAttribute('role', 'slider');
+      },
+
       inserted: function() {
-        this.xtag.thumb = this.querySelector('.climate-slider-thumb');
+        var thumb = this.querySelector('.climate-slider-thumb');
+        // TODO: thumb keyboard accessibility, see
+        // <https://www.w3.org/TR/wai-aria/roles#slider>
+        this.xtag.thumb = thumb;
+
         this.addEventListener('mousedown', captureThumb);
         this.addEventListener('touchstart', captureThumb);
 
@@ -154,6 +169,11 @@
         var value = round(this.value, this.step);
         var left = (x(value) * 100).toFixed(3);
         this.xtag.thumb.style.setProperty('left', left + '%');
+
+        // set ARIA attributes
+        this.setAttribute('aria-valuemin', this.min);
+        this.setAttribute('aria-valuemax', this.max);
+        this.setAttribute('aria-valuenow', value);
 
         // if there's an underlying input, set its value
         if (this.xtag.input) {
