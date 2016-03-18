@@ -24,7 +24,8 @@ scripts:
     <input type="submit" value="Update Location">
   </p>
 
-  <climate-slider id="year" name="year" role="slider" min="2010" max="2100" step="10">
+  <climate-slider id="year" name="year"
+    min="2010" max="2100" step="10">
     <input type="hidden" name="year">
   </climate-slider>
 </form>
@@ -35,7 +36,14 @@ scripts:
 
 <section id="maps" aria-hidden="true">
   {% for scenario in site.data.scenarios %}
-  <h3>{{ scenario.label }}</h3>
-  <climate-map data-scenario="{{ scenario.id }}"></climate-map>
+  <section class="usa-grid usa-grid-full">
+    <div class="usa-width-two-thirds">
+      <climate-map data-scenario="{{ scenario.id }}"></climate-map>
+    </div>
+    <div class="usa-width-one-third">
+      <h3>{{ scenario.label }}</h3>
+      <p>{{ scenario.description }}</p>
+    </div>
+  </section>
   {% endfor %}
 </section>
