@@ -1,0 +1,16 @@
+climate-map {
+  border: 1px solid $grey-color-dark;
+  display: block;
+
+  .leaflet-container {
+    cursor: inherit;
+    min-height: 200px;
+  }
+
+  &[interactive=true] .leaflet-container {
+    cursor: pointer;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+  }
+}
