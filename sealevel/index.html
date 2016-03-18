@@ -1,0 +1,89 @@
+---
+title: Sea Level Rise
+layout: page
+
+stylesheets:
+- vendor/leaflet.css
+
+scripts:
+- vendor/leaflet.js
+- vendor/document-register-element.js
+- vendor/x-tag.js
+- vendor/d3.js
+- components/climate-map.js
+- components/climate-slider.js
+---
+
+<h2 data-text="location">Select a Location</h2>
+
+<form id="controls">
+
+  <p>
+    {% include location_search.html %}
+    <input type="submit" value="Update Location">
+  </p>
+
+  <climate-slider id="year" name="year" role="slider" min="2010" max="2100" step="10">
+    <input type="hidden" name="year">
+  </climate-slider>
+</form>
+
+<section id="no-location" aria-hidden="true">
+  <p>Please select a location.</p>
+</section>
+
+<section id="maps" aria-hidden="true">
+  {% for scenario in site.data.scenarios %}
+  <h3>{{ scenario.label }}</h3>
+  <climate-map data-scenario="{{ scenario.id }}"></climate-map>
+  {% endfor %}
+</section>
+
+<script>
+(function(exports) {
+
+  var query = climate.parseQueryString(location.search);
+
+  console.log('query:', location.search, '->', query);
+
+  // update all of the form control values from the query string
+  Object.keys(query).forEach(function(key) {
+    d3.select('[name="' + key + '"]')
+      .property('value', query[key]);
+  });
+
+  // update any element with the "data-text" attribute to the corresponding
+  // query string value if it's set; otherwise, leave it untouched
+  d3.selectAll('[data-text]')
+    .datum(function() {
+      return this.getAttribute('data-text');
+    })
+    .filter(function(key) {
+      return !!query[key];
+    })
+    .text(function(key) {
+      return query[key];
+    });
+
+  var loc = LOCATIONS.filter(function(d) {
+    return d.label === query.location;
+  })[0];
+
+  var maps = d3.select('#maps');
+
+  if (loc) {
+
+    maps
+      .attr('aria-hidden', false)
+      .selectAll('climate-map')
+        .property('bbox', loc.bbox);
+
+  } else {
+
+    d3.select('#no-location')
+      .attr('aria-hidden', false);
+
+  }
+
+})(this);
+</script>
