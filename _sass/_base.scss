@@ -5,3 +5,7 @@ form {
 section + section {
   margin-top: 1.5em;
 }
+
+[aria-hidden=true] {
+  display: none;
+}
