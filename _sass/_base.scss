@@ -1,3 +1,7 @@
 form {
   max-width: none;
 }
+
+[aria-hidden=true] {
+  display: none;
+}
