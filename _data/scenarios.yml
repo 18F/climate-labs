@@ -1,0 +1,9 @@
+- id: high
+  label: High
+  description: Per-capita emissions increase over time.
+- id: status-quo
+  label: Status Quo
+  description: Emissions increase relative to population growth.
+- id: low
+  label: Low Emissions
+  description: A very unlikely low emissions scenario.

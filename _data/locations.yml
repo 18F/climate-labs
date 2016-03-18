@@ -1,0 +1,14 @@
+# bounding boxes can be found here:
+# <http://boundingbox.klokantech.com/>
+# 1. search with one of the "Find a place" inputs
+# 2. select "CSV" from the drop-down at the bottom
+# 3. copy and paste the value into `bbox: [<here>]`
+- id: SEA
+  label: Seattle, Washington
+  bbox: [-122.459702,47.480999,-122.224426,47.734138]
+- id: NYC
+  label: New York City, New York
+  bbox: [-74.055405,40.565459,-73.700272,40.915256]
+- id: SFO
+  label: San Francisco, California
+  bbox: [-122.521935,37.707998,-122.34684,37.837988]
