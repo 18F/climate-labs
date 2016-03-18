@@ -4,13 +4,22 @@ climate-slider {
 
   background: #ccc;
   border-radius: 1em;
+
+  cursor: pointer;
+
   display: block;
   height: $slider-height;
+  margin: 1em 0;
   position: relative;
 
   .climate-slider-thumb {
     background: #000;
     border-radius: $thumb-height;
+
+    cursor: inherit;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+
     height: $thumb-height;
     margin-left: -$thumb-height / 2;
     margin-top: ($slider-height - $thumb-height) / 2;
