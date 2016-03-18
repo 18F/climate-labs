@@ -1,23 +1,66 @@
 ---
 layout: default
+
+scripts:
+- vendor/document-register-element.js
+- vendor/x-tag.js
+- components/search-box.js
 ---
 
-<div class="home">
+<search-box index-src="/search.json"></search-box>
 
-  <h1 class="page-heading">Posts</h1>
+<form id="query-form">
+  <div class="usa-width-one-half">
+    <label for="location">Enter the location you are concerned with</label>
+    <input type="text" id="location">
+  </div>
+  <div class="usa-width-one-half">
+    <fieldset class="usa-fieldset-inputs usa-sans">
+      <legend>What topic are you concerned about?</legend>
+      <ul class="usa-unstyled-list">
+        <li>
+          <input id="slr" type="radio" name="topic" value="slr">
+          <label for="slr">Sea level rising</label>
+        </li>
+        <li>
+          <input id="temp" type="radio" name="topic" value="temp">
+          <label for="temp">Extreme temperatures</label>
+        </li>
+      </ul>
+    </fieldset>
+  </div>
+  <div class="usa-width-one-whole">
+    <button>Let's go!</button>
+  </div>
+</form>
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+<script>
+  (function(){
+    function parseURLParameters(qs) {
+      var params = qs.replace(/^\?/g, '').split('&');
+      var ps = {};
 
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
+      params.forEach(function(p) {
+        var parts;
+        if (p) {
+          parts = p.split('=');
+          ps[parts[0]] = parts[1];
+        }
+      });
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+      return ps;
+    }
 
-</div>
+    var params = parseURLParameters(window.location.search);
+    var scenario = params ? params.scenario : false;
+
+    if (scenario === 'search') {
+      document.querySelector('#query-form').remove();
+    }
+    else if (scenario === 'form') {
+      document.querySelector('search-box').remove();
+    }
+
+    return;
+  })();
+</script>
