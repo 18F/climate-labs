@@ -85,7 +85,7 @@
 
         var map = L.map(container, options);
 
-        console.log('controls:', controls);
+        // console.log('controls:', controls);
 
         Object.keys(controls).forEach(function(control) {
           if (controls[control] === false) {
@@ -136,6 +136,27 @@
         set: function(value) {
           var zoom = +value;
           return isNaN(zoom) ? false : this.xtag.map.setZoom(zoom);
+        }
+      },
+
+      bbox: {
+        get: function() {
+          var bounds = this.xtag.map.getBounds();
+          return [
+            bounds.getWest(),
+            bounds.getNorth(),
+            bounds.getEast(),
+            bounds.getSouth()
+          ];
+        },
+        set: function(bbox) {
+          if (!bbox || bbox.length !== 4) {
+            throw new Error('Expected [lat,lng,lat,lng]; got: ' + String(bbox));
+          }
+          return this.xtag.map.fitBounds([
+            [bbox[1], bbox[0]],
+            [bbox[3], bbox[2]]
+          ]);
         }
       }
     },
