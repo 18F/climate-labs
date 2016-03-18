@@ -1,0 +1,20 @@
+climate-slider {
+  $slider-height: 1em;
+  $thumb-height: 1.5em;
+
+  background: #ccc;
+  border-radius: 1em;
+  display: block;
+  height: $slider-height;
+  position: relative;
+
+  .climate-slider-thumb {
+    background: #000;
+    border-radius: $thumb-height;
+    height: $thumb-height;
+    margin-left: -$thumb-height / 2;
+    margin-top: ($slider-height - $thumb-height) / 2;
+    position: absolute;
+    width: $thumb-height;
+  }
+}
