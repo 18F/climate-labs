@@ -49,11 +49,13 @@
         .x(function(d) { return x(d.x); })
         .y1(function(d) { return y(d.y); })
         .y0(bottom));
+
+    delete this.xtag.renderId;
   };
 
   var resize = function() {
-    if (!this.xtag.frameId) {
-      this.xtag.frameId = requestAnimationFrame(render.bind(this));
+    if (!this.xtag.renderId) {
+      this.xtag.renderId = requestAnimationFrame(render.bind(this));
     }
   };
 
@@ -73,7 +75,6 @@
       inserted: function() {
         if (this.hasAttribute('data-values')) {
           var json = this.getAttribute('data-values');
-          console.info('parsing:', json);
           this.data = JSON.parse(json);
         }
         window.addEventListener('resize', this.xtag.onresize = resize.bind(this));
@@ -90,7 +91,7 @@
         },
         set: function(data) {
           this.xtag.data = data;
-          this.render();
+          resize.call(this);
         }
       }
     },
