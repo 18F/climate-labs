@@ -36,6 +36,14 @@
       .selectAll('climate-map')
         .property('bbox', loc.bbox);
 
+    var update = function(year) {
+
+    };
+
+    var slider = d3.select('#year');
+
+    update(query.year || slider.property('value'));
+
   } else {
 
     d3.select('#no-location')
