@@ -102,7 +102,9 @@
   exports.ClimateSlider = xtag.register('climate-slider', {
     // create a thumb div
     content: [
-      '<div class="climate-slider-thumb"></div>'
+      '<div class="climate-slider-thumb">',
+        '<span class="climate-slider-label"></span>',
+      '</div>'
     ].join(''),
 
     lifecycle: {
@@ -115,6 +117,10 @@
         // TODO: thumb keyboard accessibility, see
         // <https://www.w3.org/TR/wai-aria/roles#slider>
         this.xtag.thumb = thumb;
+
+        if (this.getAttribute('label') === 'true') {
+          this.xtag.label = this.querySelector('.climate-slider-label');
+        }
 
         this.addEventListener('mousedown', captureThumb);
         this.addEventListener('touchstart', captureThumb);
@@ -178,6 +184,13 @@
         // if there's an underlying input, set its value
         if (this.xtag.input) {
           this.xtag.input.value = value;
+        }
+
+        var label = this.xtag.label;
+        if (label) {
+          label.textContent = value;
+          var rect = label.getBoundingClientRect();
+          label.style.setProperty('margin-left', Math.floor(-rect.width / 2) + 'px');
         }
       }
     }

@@ -25,7 +25,8 @@ scripts:
   <climate-slider id="year" name="year"
     min="{{ site.data.timeline.start }}"
     max="{{ site.data.timeline.end }}"
-    step="{{ site.data.timeline.step }}">
+    step="{{ site.data.timeline.step }}"
+    label="true">
 
     <climate-area-chart
       data-values='{{ site.data.timeline.annual_levels | jsonify }}'>
