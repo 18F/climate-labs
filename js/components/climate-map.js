@@ -48,6 +48,14 @@
     }, {});
   };
 
+  var dispatchMapEvent = function(type) {
+    return function(e) {
+      this.dispatchEvent(new CustomEvent(type || e.type, {
+        detail: e
+      }));
+    };
+  };
+
   window.ClimateMap = xtag.register('climate-map', {
     lifecycle: {
       created: function() {
@@ -84,6 +92,12 @@
         }
 
         var map = L.map(container, options);
+
+        var move = dispatchMapEvent('move').bind(this);
+        ['zoomstart', 'zoomend', 'dragstart', 'dragend']
+          .forEach(function(type) {
+            map.on(type, move);
+          }, this);
 
         // console.log('controls:', controls);
 
