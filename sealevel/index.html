@@ -10,22 +10,27 @@ scripts:
 - vendor/document-register-element.js
 - vendor/x-tag.js
 - vendor/d3.js
+- components/climate-area-chart.js
 - components/climate-map.js
 - components/climate-slider.js
 - views/sealevel.js
 ---
 
-<h2 data-text="location">Select a Location</h2>
-
 <form id="controls">
-
   <p>
-    {% include location_search.html %}
+    You've chosen: {% include location_search.html %}
     <input type="submit" value="Update Location">
   </p>
 
   <climate-slider id="year" name="year"
-    min="2010" max="2100" step="10">
+    min="{{ site.data.timeline.start }}"
+    max="{{ site.data.timeline.end }}"
+    step="{{ site.data.timeline.step }}">
+
+    <climate-area-chart
+      data-values='{{ site.data.timeline.annual_levels | jsonify }}'>
+    </climate-area-chart>
+
     <input type="hidden" name="year">
   </climate-slider>
 </form>
