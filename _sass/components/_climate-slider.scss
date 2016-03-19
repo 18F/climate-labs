@@ -2,18 +2,26 @@ climate-slider {
   $slider-height: 1em;
   $thumb-height: 1.5em;
 
-  background: #ccc;
-  border-radius: 1em;
-
   cursor: pointer;
 
   display: block;
-  height: $slider-height;
+  padding-bottom: $slider-height;
   margin: 1em 0;
   position: relative;
 
+  &::before {
+    background: #0071bc;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: $slider-height;
+    position: absolute;
+    width: 100%;
+  }
+
   .climate-slider-thumb {
     background: #000;
+    border: 2px solid #fff;
     border-radius: $thumb-height;
 
     cursor: inherit;
@@ -22,8 +30,8 @@ climate-slider {
 
     height: $thumb-height;
     margin-left: -$thumb-height / 2;
-    margin-top: ($slider-height - $thumb-height) / 2;
     position: absolute;
     width: $thumb-height;
+    bottom: ($slider-height - $thumb-height) / 2;
   }
 }
