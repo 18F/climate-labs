@@ -3,6 +3,7 @@ title: Sea Level Rise
 layout: page
 
 stylesheets:
+- sealevel.css
 - vendor/leaflet.css
 
 scripts:
@@ -15,6 +16,14 @@ scripts:
 - components/climate-slider.js
 - views/sealevel.js
 ---
+
+<script>
+  ANNUAL_SLR_LEVELS_BY_SCENARIO = {
+    {% for scenario in site.data.scenarios %}
+    '{{ scenario.id }}': {{ scenario.slr | jsonify }},
+    {% endfor %}
+  };
+</script>
 
 <form id="controls">
   <p>
@@ -29,7 +38,7 @@ scripts:
     label="true">
 
     <climate-area-chart
-      data-values='{{ site.data.timeline.annual_levels | jsonify }}'>
+      data-values='{{ site.data.scenarios[0].slr | jsonify }}'>
     </climate-area-chart>
 
     <input type="hidden" name="year">
@@ -40,14 +49,19 @@ scripts:
   <p>Please select a location.</p>
 </section>
 
-<section id="maps" aria-hidden="true">
+<section id="scenarios" aria-hidden="true">
+  {% assign year = site.data.timeline.start %}
   {% for scenario in site.data.scenarios %}
-  <section class="usa-grid usa-grid-full">
+  <section data-scenario="{{ scenario.id }}" class="usa-grid usa-grid-full">
     <div class="usa-width-two-thirds">
-      <climate-map data-scenario="{{ scenario.id }}"></climate-map>
+      <climate-map></climate-map>
     </div>
     <div class="usa-width-one-third">
       <h3>{{ scenario.label }}</h3>
+      <h4>
+        <span data-text="level">{{ scenario.slr[year] }}</span>
+        ft in <span data-text="year">2010</span>
+      </h4>
       <p>{{ scenario.description }}</p>
     </div>
   </section>
