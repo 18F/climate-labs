@@ -173,6 +173,12 @@
       render: function() {
         var x = lerp(this.min, this.max);
         var value = round(this.value, this.step);
+
+        if (value !== this.value) {
+          this.xtag.value = value;
+          this.dispatchEvent(new CustomEvent('change', {value: value}));
+        }
+
         var left = (x(value) * 100).toFixed(3);
         this.xtag.thumb.style.setProperty('left', left + '%');
 
