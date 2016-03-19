@@ -1,3 +1,7 @@
 form {
   max-width: none;
 }
+
+section + section {
+  margin-top: 1.5em;
+}
