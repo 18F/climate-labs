@@ -1,17 +1,12 @@
 (function(exports) {
 
   window.SearchBox = xtag.register('search-box', {
+    content: '<input type="text" placeholder="Search for things here">',
     lifecycle: {
       created: function() {
         var searchIndexSource = this.getAttribute('index-src');
         var container = document.createElement('div');
         this.insertBefore(container, this.firstChild);
-
-        var input = document.createElement('input');
-        input.type = 'text';
-        input.placeholder = 'Search for things here';
-
-        container.insertBefore(input, container.firstChild);
       },
 
       attributeChanged: function(name, previous, value) {
