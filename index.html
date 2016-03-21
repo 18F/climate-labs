@@ -12,12 +12,14 @@ scripts:
   <h1>Climate prototype</h1>
 </header>
 <main>
-  <search-box index-src="/search.json"></search-box>
+  <div id="search-form">
+    {% include location_search.html %}
+  </div>
 
   <form method="get" id="query-form">
     <div class="usa-width-one-half">
       <label for="location">Enter the location you are concerned with</label>
-      <input type="text" name="location" id="location">
+      {% include location_search.html %}
     </div>
     <div class="usa-width-one-half">
         <label for="topic-btns">What topic are you concerned about?</label>

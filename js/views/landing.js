@@ -4,7 +4,7 @@
   var formTest = params ? params.test : false;
 
   var formEl = document.querySelector('#query-form');
-  var searchEl = document.querySelector('search-box');
+  var searchEl = document.querySelector('#search-form');
 
   if (formTest === 'search') {
     formEl.remove();
