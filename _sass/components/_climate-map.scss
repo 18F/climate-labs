@@ -1,10 +1,17 @@
 climate-map {
-  border: 1px solid $grey-color-dark;
+  $border-radius: 4px;
+
+  border: 1px solid #999;
+  border-radius: $border-radius;
   display: block;
 
   .leaflet-container {
     cursor: inherit;
     min-height: 400px;
+  }
+
+  .leaflet-control-attribution {
+    border-top-left-radius: $border-radius;
   }
 
   &[interactive=true] .leaflet-container {
