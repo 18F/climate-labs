@@ -6,9 +6,13 @@
 - id: SEA
   label: Seattle, Washington
   bbox: [-122.459702,47.480999,-122.224426,47.734138]
+- label: Seattle Docks
+  bbox: [-122.395957,47.651325,-122.35965,47.664477]
 - id: NYC
   label: New York City, New York
   bbox: [-74.055405,40.565459,-73.700272,40.915256]
+- label: Edgemere, Queens, New York
+  bbox: [-73.78948,40.587576,-73.763731,40.609799]
 - id: SFO
   label: San Francisco, California
   bbox: [-122.521935,37.707998,-122.34684,37.837988]
