@@ -22,5 +22,9 @@ url: ''
 twitter_username: 18F
 github_username:  18F
 
+# scripts to load on all pages
+scripts:
+- climate.js
+
 # Build settings
 markdown: kramdown
