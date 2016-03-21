@@ -2,9 +2,9 @@
 
   var SUBDOMAINS = 'a b c d'.split(' ');
   var TILE_LAYERS = {
-    'toner-lite': 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png',
-    'toner': 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',
-    'terrain': 'https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png'
+    background: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png',
+    labels: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}.png',
+    slr: 'https://{s}.coast.noaa.gov/arcgis/rest/services/dc_slr/slr_{depth}ft/MapServer/tile/{z}/{y}/{x}'
   };
 
   var parseLatLng = function(str) {
@@ -48,6 +48,14 @@
     }, {});
   };
 
+  var dispatchMapEvent = function(type) {
+    return function(e) {
+      this.dispatchEvent(new CustomEvent(type || e.type, {
+        detail: e
+      }));
+    };
+  };
+
   window.ClimateMap = xtag.register('climate-map', {
     lifecycle: {
       created: function() {
@@ -85,7 +93,13 @@
 
         var map = L.map(container, options);
 
-        console.log('controls:', controls);
+        var move = dispatchMapEvent('move').bind(this);
+        ['zoomstart', 'zoomend', 'dragstart', 'dragend']
+          .forEach(function(type) {
+            map.on(type, move);
+          }, this);
+
+        // console.log('controls:', controls);
 
         Object.keys(controls).forEach(function(control) {
           if (controls[control] === false) {
@@ -102,7 +116,22 @@
           Object.keys(TILE_LAYERS)[0];
 
         var tileUrl = TILE_LAYERS[layerName] || layerName;
-        var tiles = L.tileLayer(tileUrl, {subdomains: SUBDOMAINS})
+        var tiles = L.tileLayer(tileUrl, {
+            subdomains: SUBDOMAINS
+          })
+          .addTo(map);
+
+        var depth = +this.getAttribute('depth') || 0;
+        this.xtag.depthLayer = L.tileLayer(TILE_LAYERS.slr, {
+            depth: depth,
+            subdomains: ['www', 'maps', 'maps1', 'maps2']
+          })
+          .addTo(map);
+
+        L.tileLayer(TILE_LAYERS.labels, {
+            subdomains: SUBDOMAINS,
+            opacity: .8
+          })
           .addTo(map);
 
         this.xtag.map = map;
@@ -112,6 +141,7 @@
         switch (name) {
           case 'center':
           case 'zoom':
+          case 'depth':
             this[name] = value;
             break;
         }
@@ -136,6 +166,44 @@
         set: function(value) {
           var zoom = +value;
           return isNaN(zoom) ? false : this.xtag.map.setZoom(zoom);
+        }
+      },
+
+      bbox: {
+        get: function() {
+          var bounds = this.xtag.map.getBounds();
+          return [
+            bounds.getWest(),
+            bounds.getNorth(),
+            bounds.getEast(),
+            bounds.getSouth()
+          ];
+        },
+        set: function(bbox) {
+          if (!bbox || bbox.length !== 4) {
+            throw new Error('Expected [lat,lng,lat,lng]; got: ' + String(bbox));
+          }
+          return this.xtag.map.fitBounds([
+            [bbox[1], bbox[0]],
+            [bbox[3], bbox[2]]
+          ]);
+        }
+      },
+
+      depth: {
+        get: function() {
+          return this.xtag.depthLayer.options.depth;
+        },
+        set: function(depth) {
+          depth = +depth;
+          if (isNaN(depth)) {
+            return false;
+          }
+          if (depth !== this.depth) {
+            var layer = this.xtag.depthLayer;
+            layer.options.depth = depth;
+            layer.redraw();
+          }
         }
       }
     },
