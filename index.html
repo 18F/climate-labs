@@ -1,23 +1,32 @@
 ---
 layout: default
+
+scripts:
+- vendor/document-register-element.js
+- vendor/x-tag.js
+- components/search-box.js
+- views/landing.js
 ---
 
-<div class="home">
+<header>
+  <h1>Climate prototype</h1>
+</header>
+<main>
+  <div id="search-form">
+    {% include location_search.html %}
+  </div>
 
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
-</div>
+  <form method="get" id="query-form">
+    <div class="usa-width-one-half">
+      <label for="location">Enter the location you are concerned with</label>
+      {% include location_search.html %}
+    </div>
+    <div class="usa-width-one-half">
+        <label for="topic-btns">What topic are you concerned about?</label>
+        <div id="topic-btns">
+          <button formaction="{{ site.baseurl }}/sealevel/">Sea level rising</button>
+          <button formaction="{{ site.baseurl }}/temp/">Extreme temperature</button>
+        </div>
+    </div>
+  </form>
+</main>
