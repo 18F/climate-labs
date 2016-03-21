@@ -145,6 +145,8 @@
         }
 
         var map = L.map(container, options);
+        // remove the annoying Leaflet link in the attribution
+        map.attributionControl.setPrefix('');
 
         var move = dispatchMapEvent('move').bind(this);
         ['zoomstart', 'zoomend', 'dragstart', 'dragend']
