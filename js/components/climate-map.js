@@ -6,34 +6,57 @@
   // XXX this is as far in as the NOAA tiles go
   var MAX_ZOOM = 15;
 
+  var extend = function(obj) {
+    for (var i = 1; i < arguments.length; i++) {
+      var ext = arguments[i];
+      if (ext) {
+        for (var k in ext) {
+          obj[k] = ext[k];
+        }
+      }
+    }
+    return obj;
+  };
+
+  var createEsriSpec = function(name, options) {
+    var spec = {
+      url: 'https://{s}.arcgisonline.com/ArcGIS/rest/services/' + name + '/MapServer/tile/{z}/{y}/{x}',
+      subdomains: ['server', 'services'],
+      attribution: 'ESRI'
+    };
+    if (options) {
+      extend(spec, options);
+    }
+    return spec;
+  };
+
+  var createStamenLayer = function(name) {
+    return {
+      url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/' + name + '/{z}/{x}/{y}.png',
+      subdomains: 'a b c d'.split(' '),
+      // see <http://maps.stamen.com/#howto> for full attribution
+      attribution: 'Stamen Design under CC BY 3.0; data by OSM under ODbL'
+    };
+  };
+
   var TILE_LAYERS = {
-    toner: {
-      url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png',
-      subdomains: 'a b c d'.split(' ')
-    },
-    labels: {
-      url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}.png',
-      subdomains: 'a b c d'.split(' ')
-    },
+    background: createStamenLayer('toner-lite'),
+    labels: createStamenLayer('toner-labels'),
+    gray: createEsriSpec('Canvas/World_Light_Gray_Base'),
+    satellite: createEsriSpec('World_Imagery'),
     slr: {
       url: 'https://{s}.coast.noaa.gov/arcgis/rest/services/dc_slr/slr_{depth}ft/MapServer/tile/{z}/{y}/{x}',
-      subdomains: ['www', 'maps', 'maps1', 'maps2']
+      subdomains: ['www', 'maps', 'maps1', 'maps2'],
+      maxZoom: 15,
+      attribution: 'NOAA'
     },
-    satellite: {
-      url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg',
-      subdomains: [1, 2, 3, 4]
-    }
   };
 
   TILE_LAYERS.background = TILE_LAYERS.satellite;
 
   var createTileLayer = function(id, options) {
     var layer = TILE_LAYERS[id];
-    if (options) {
-      options.subdomains = options.subdomains || layer.subdomains;
-    } else {
-      options = layer;
-    }
+    options = extend({}, layer, options);
     return L.tileLayer(layer.url, options);
   };
 
@@ -108,7 +131,6 @@
           zoom: zoom,
           // disable scroll wheel zooming by default
           scrollWheelZoom: false,
-          maxZoom: MAX_ZOOM
         };
 
         var interactive = this.getAttribute('interactive') === 'true';
@@ -150,7 +172,8 @@
 
         var depth = +this.getAttribute('depth') || 0;
         this.xtag.depthLayer = createTileLayer('slr', {
-            depth: depth
+            depth: depth,
+            opacity: .8
           })
           .addTo(map);
 
