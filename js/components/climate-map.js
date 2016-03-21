@@ -131,6 +131,7 @@
           zoom: zoom,
           // disable scroll wheel zooming by default
           scrollWheelZoom: false,
+          maxZoom: MAX_ZOOM
         };
 
         var interactive = this.getAttribute('interactive') === 'true';
