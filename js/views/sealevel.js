@@ -45,8 +45,18 @@
   if (loc) {
 
     // zoom all the maps
-    scenarios.select('climate-map')
+    var maps = scenarios.select('climate-map')
       .property('bbox', loc.bbox);
+
+    // sync all the maps!
+    maps.each(function(d, j) {
+      var self = this;
+      maps.each(function(_, k) {
+        if (j !== k) {
+          self.sync(this);
+        }
+      });
+    });
 
     var update = function() {
       var year = slider.property('value');
