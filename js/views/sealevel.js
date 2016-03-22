@@ -20,13 +20,21 @@
     });
   };
 
-  // console.log('query:', location.search, '->', query);
-
   // update all of the form control values from the query string
-  Object.keys(query).forEach(function(key) {
-    d3.select('[name="' + key + '"]')
-      .property('value', query[key]);
-  });
+  d3.selectAll('form [name]')
+    .each(function() {
+      var key = this.name;
+      var val = query[key];
+      switch (this.type) {
+        case 'radio':
+        case 'checkbox':
+          this.checked = this.value === val;
+          break;
+        default:
+          this.value = val;
+          break;
+      }
+    });
 
   var info = d3.select('#info')
     .datum(query)
@@ -58,11 +66,9 @@
       });
     });
 
-    // XXX
-    var scenario = 'high';
-
     var update = function() {
       var year = query.year = slider.property('value');
+      var scenario = query.scenario;
       projections
         .datum(function() {
           var index = this.getAttribute('data-proj-index');
