@@ -10,6 +10,15 @@ main > section + section {
   margin-top: 1.5em;
 }
 
+.usa-accordion {
+  display: block;
+}
+
+.usa-content-list {
+  list-style: initial;
+  margin-left: 1.25em;
+}
+
 [aria-hidden=true] {
   display: none;
 }
