@@ -11,10 +11,35 @@ scripts:
 - vendor/document-register-element.js
 - vendor/x-tag.js
 - vendor/d3.js
+- components/aria-toggle.js
 - components/climate-area-chart.js
 - components/climate-map.js
 - components/climate-slider.js
 - views/sealevel.js
+
+data_sources:
+- name: REST Services
+  href: https://coast.noaa.gov/arcgis/rest/services/FloodExposureMapper
+  format: API
+  filesize: false
+  source:
+    name: NOAA
+    href: https://coast.noaa.gov/
+- name: ArcGIS Raster layers
+  href: ''
+  format: ESRI GeoDatabase
+  filesize: 768 MB
+  source:
+    name: NOAA
+    href: https://coast.noaa.gov/
+- name: Raster layers
+  href: ''
+  format: GeoTIFF
+  filesize: 2.8 GB
+  source:
+    name: NOAA
+    href: https://coast.noaa.gov/
+
 ---
 
 <script>
@@ -25,7 +50,7 @@ scripts:
   };
 </script>
 
-<form id="controls">
+<form id="controls" action="{{ page.url }}">
   <p>
     Start by selecting the location for which you’d like
     sea-level rise data:
@@ -59,6 +84,11 @@ scripts:
     different scientific models account for different impact
     factors, there’s some variation among the data we draw on,
     which accounts for the variations in the maps.
+
+    You can then <a href="#download">download this data</a> or
+    <a href="#upload">upload your own</a> to display it on the
+    map.
+
   </p>
 </section>
 
@@ -80,5 +110,48 @@ scripts:
   {% endfor %}
 </section>
 
-<section id="download">
+<section id="next-steps">
+  <h2>Next Steps</h2>
+
+  <ul class="usa-accordion usa-accordion-bordered usa-unstyled-list">
+    <li>
+      <button is="aria-toggle" aria-controls="download"
+        aria-expanded="true" class="usa-button-unstyled">
+        Download data
+      </button>
+
+      <div id="download" class="usa-accordion-content">
+        <p>Data is available in the following formats:</p>
+        <ul class="usa-content-list">
+          {% for source in page.data_sources %}
+          <li>
+            <a href="{{ source.href }}">{{ source.name }}</a>
+            ({{ source.format|default:'format unknown' }}{% if source.filesize %}, {{ source.filesize }}{% endif %})
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </li>
+
+    <li>
+      <button is="aria-toggle" aria-controls="upload"
+        aria-expanded="false" class="usa-button-unstyled">
+        Upload your own data
+      </button>
+
+      <form action="{{ page.url }}" id="upload"
+        aria-hidden="true" class="usa-accordion-content">
+        <p>
+          Upload your own ESRI Shapefile (<u>?</u>) so that you can gauge sea level
+          rise impacts on local features and infrastructure.
+        </p>
+
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+      </form>
+    </li>
+
+  </ul>
+
 </section>
+
