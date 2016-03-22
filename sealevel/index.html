@@ -27,7 +27,7 @@ scripts:
 
 <form id="controls">
   <p>
-    You've chosen: {% include location_search.html %}
+    You selected: {% include location_search.html %}
     <input type="submit" value="Update Location">
   </p>
 
@@ -49,21 +49,31 @@ scripts:
   <p>Please select a location.</p>
 </section>
 
-<section id="scenarios" aria-hidden="true">
+<section id="info">
+  <p>
+    <strong>The following three maps show projected sea-level
+      increases for <span data-text="year">2010</span></strong>.
+    We aggregated these data from 40 trusted sources. Because
+    different scientific models account for different impact
+    factors, there’s some variation among the data we draw on,
+    which accounts for the variations in the maps.
+  </p>
+</section>
+
+<section id="projections" aria-hidden="true" class="usa-grid usa-grid-full">
   {% assign year = site.data.timeline.start %}
-  {% for scenario in site.data.scenarios %}
-  <section data-scenario="{{ scenario.id }}" class="usa-grid usa-grid-full">
-    <div class="usa-width-two-thirds">
-      <climate-map interactive="true"></climate-map>
-    </div>
-    <div class="usa-width-one-third">
-      <h3>{{ scenario.label }}</h3>
-      <h4>
-        <span data-text="level">{{ scenario.slr[year] }}</span>
-        ft in <span data-text="year">2010</span>
-      </h4>
-      <p>{{ scenario.description }}</p>
-    </div>
+  {% for proj in site.data.projections %}
+  <section id="proj-{{ proj.id }}" data-proj-index="{{ proj.index }}"
+    class="usa-width-one-third">
+    <h3>
+      <strong data-text="level">0</strong> ft.
+      ({{ proj.label }})
+      <!-- in <span data-text="year">2010</span> -->
+    </h3>
+    <climate-map interactive="true"></climate-map>
+    <p>
+      {{ proj.description.slr|default:proj.description.general }}
+    </p>
   </section>
   {% endfor %}
 </section>

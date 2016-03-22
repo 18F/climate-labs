@@ -28,7 +28,7 @@
       .property('value', query[key]);
   });
 
-  d3.select('body')
+  var info = d3.select('#info')
     .datum(query)
     .call(updateTemplates);
 
@@ -36,16 +36,16 @@
     return d.label === query.location;
   })[0];
 
-  var scenarios = d3.select('#scenarios')
+  var projections = d3.select('#projections')
     .attr('aria-hidden', !loc)
-    .selectAll('[data-scenario]');
+    .selectAll('section');
 
   var slider = d3.select('#year');
 
   if (loc) {
 
     // zoom all the maps
-    var maps = scenarios.select('climate-map')
+    var maps = projections.select('climate-map')
       .property('bbox', loc.bbox);
 
     // sync all the maps!
@@ -58,25 +58,29 @@
       });
     });
 
+    // XXX
+    var scenario = 'high';
+
     var update = function() {
-      var year = slider.property('value');
-      scenarios
+      var year = query.year = slider.property('value');
+      projections
         .datum(function() {
-          var scenario = this.getAttribute('data-scenario');
-          var levels = ANNUAL_SLR_LEVELS_BY_SCENARIO[scenario];
+          var index = this.getAttribute('data-proj-index');
+          var levels = ANNUAL_SLR_LEVELS_BY_SCENARIO[scenario][year];
           return {
             year: year,
-            scenario: scenario,
-            level: levels ? levels[year] : 0
+            level: levels ? levels[index] : 0
           };
-        });
+        })
+        .call(updateTemplates)
+        .select('climate-map')
+          .property('depth', function(d) {
+            return d.level;
+          });
 
-      scenarios.call(updateTemplates);
-
-      scenarios.select('climate-map')
-        .property('depth', function(d) {
-          return d.level;
-        });
+      info
+        .datum(query)
+        .call(updateTemplates);
     };
 
     slider
