@@ -1,0 +1,122 @@
+---
+title: Extreme Temperatures
+layout: page
+
+stylesheets:
+- temperature.css
+
+scripts:
+- vendor/document-register-element.js
+- vendor/x-tag.js
+- vendor/d3.js
+- climate.js
+- components/temperature-chart.js
+- views/temperature.js
+---
+
+<script>
+  var HISTORICAL_DATA = [
+    {
+      year: 2005,
+      numberOfDays: 3
+    },
+    {
+      year: 2006,
+      numberOfDays: 4
+    },
+    {
+      year: 2007,
+      numberOfDays: 6
+    },
+    {
+      year: 2008,
+      numberOfDays: 8
+    },
+    {
+      year: 2009,
+      numberOfDays: 10
+    },
+    {
+      year: 2010,
+      numberOfDays: 14
+    },
+    {
+      year: 2011,
+      numberOfDays: 24
+    },
+    {
+      year: 2012,
+      numberOfDays: 30
+    },
+    {
+      year: 2013,
+      numberOfDays: 36
+    },
+    {
+      year: 2014,
+      numberOfDays: 40
+    },
+    {
+      year: 2015,
+      numberOfDays: 43
+    },
+    {
+      year: 2016,
+      numberOfDays: 45
+    }
+  ];
+
+  var FUTURE_YEARS = [2016, 2017, 2018, 2019, 2020, 2021];
+  var LOW_SCENARIO = FUTURE_YEARS.map(function(d, i){
+    return {
+      year: d,
+      numberOfDays: 45 + (i * 2)
+    };
+  });
+
+  var MEDIUM_SCENARIO = FUTURE_YEARS.map(function(d, i){
+    return {
+      year: d,
+      numberOfDays: 45 + (i * 3)
+    };
+  });
+
+  var HIGH_SCENARIO = FUTURE_YEARS.map(function(d, i){
+    return {
+      year: d,
+      numberOfDays: 45 + (i * 4.5)
+    };
+  });
+</script>
+
+<form id="controls">
+  <p>
+    You've chosen: {% include location_search.html %}
+    <input type="submit" value="Update Location">
+  </p>
+</form>
+
+<section id="no-location" aria-hidden="true">
+  <p>Please select a location.</p>
+</section>
+
+<section>
+  <form class="usa-width-one-half" id="filter">
+    <label for="year">Year</label>
+    <input type="number" id="year" name="year"
+        step="1" min="2016" max="2021" value="2018">
+
+    <label for="temp">Above Degrees (Fahrenheit)</label>
+    <input type="number" id="temp" name="temp"
+        step="1" min="80" max="110" value="90">
+
+    <label for="days">Consecutive Days</label>
+    <input type="number" id="days" name="days"
+        step="1" min="1" max="10" value="1">
+  </form>
+  <div class="usa-width-one-half">
+    <temperature-chart year="2018" min-temp="90" day-count="1">
+    </temperature-chart>
+    <button id="download" role="button">Download</button>
+  </div>
+</section>
