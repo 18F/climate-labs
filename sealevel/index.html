@@ -1,5 +1,5 @@
 ---
-title: Sea Level Rise
+title: Sea level rise
 layout: page
 
 stylesheets:
@@ -27,8 +27,10 @@ scripts:
 
 <form id="controls">
   <p>
-    You selected: {% include location_search.html %}
-    <input type="submit" value="Update Location">
+    Start by selecting the location for which you’d like
+    sea-level rise data:
+    {% include location_search.html %}
+    <input type="submit" value="Update location">
   </p>
 
   <climate-slider id="year" name="year"
@@ -76,4 +78,7 @@ scripts:
     </p>
   </section>
   {% endfor %}
+</section>
+
+<section id="download">
 </section>

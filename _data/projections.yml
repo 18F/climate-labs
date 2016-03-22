@@ -10,22 +10,24 @@
 #   index: <0-based index of this projection in numeric lists>
 #
 - id: high
-  label: high-end
+  label: high end
   description:
-    general: This is the high-end projection. This projection
-      features the most extreme marked increases in sea level.
+    general: >
+      This is the high-end projection. It features the most
+      extreme increases in sea level.
   index: 2
 - id: median
-  label: mid-range
+  label: mid range
   description:
-    general: This is the mid-range projection. This projection
-      is more moderate, and may be useful to a broader number of
-      users.
+    general: >
+      This is the mid-range projection. It’s more moderate, and
+      may be useful to a broader number of people.
   index: 1
 - id: low
-  label: low-end
+  label: low end
   description:
-    general: This is the low-end projection. It features among
-      the mildest increases in sea level and represents the
-      lowest-impact situation represented in our maps.
+    general: >
+      This is the low-end projection. It features the mildest
+      increases in sea level and represents the lowest-impact
+      situation of the three shown here.
   index: 0
