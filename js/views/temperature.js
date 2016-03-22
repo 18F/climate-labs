@@ -9,29 +9,49 @@
       .property('value', query[key]);
   });
 
+  var chartEl = d3.select('temperature-chart');
+
+  d3.select('#year').on('change', function () {
+    chartEl.attr('year', d3.event.target.value);
+  });
+
+  d3.select('#temp').on('change', function () {
+    chartEl.attr('min-temp', d3.event.target.value);
+  });
+
+  d3.select('#days').on('change', function () {
+    chartEl.attr('day-count', d3.event.target.value);
+  });
+
+  d3.select('#download').on('click', function () {
+    d3.select('#downloader').attr('aria-hidden', false);
+  });
+
+  d3.select('#downloader button').on('click', function () {
+    d3.event.preventDefault();
+    alert('Fake downloading 👍');
+  });
+
+  d3.select('#downloader form').on('change', function () {
+    function calculateFileSize(n) {
+      if (n === 0) return 0;
+      return 14 + (n * 1.4);
+    }
+
+    function numberOfChecks(t) {
+      var c = Array.prototype.slice.call(t.querySelectorAll('[type="checkbox"]'));
+      return c.filter(function(d) { return d.checked; }).length;
+    }
+
+    var number = numberOfChecks(d3.event.currentTarget);
+    var text = ['Download', calculateFileSize(number), 'MB file'].join(' ');
+    d3.select('#downloader button').text(text);
+  });
+
   if (loc) {
-    var chartEl = document.querySelector('temperature-chart');
-    var daysEl = document.querySelector('#days');
-    var downloadEl = document.querySelector('#download');
-    var tempEl = document.querySelector('#temp');
-    var yearEl = document.querySelector('#year');
-
-    yearEl.addEventListener('change', function (e) {
-      chartEl.setAttribute('year', e.target.value);
-    });
-
-    tempEl.addEventListener('change', function (e) {
-      chartEl.setAttribute('min-temp', e.target.value);
-    });
-
-    daysEl.addEventListener('change', function (e) {
-      chartEl.setAttribute('day-count', e.target.value);
-    });
-
-    downloadEl.addEventListener('click', function (e) {
-      d3.select('#downloader').attr('aria-hidden', false);
-    });
+    d3.select('section[role="main"]').attr('aria-hidden', false);
   } else {
     d3.select('#no-location').attr('aria-hidden', false);
+    d3.select('section[role="main"]').attr('aria-hidden', true);
   }
 })(window);
