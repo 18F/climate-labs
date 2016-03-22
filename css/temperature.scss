@@ -1,44 +1,9 @@
 ---
+# for temperature page
 ---
 
-svg {
-  border: 1px solid black;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: black;
-  stroke-width: 2px;
-}
-
-.line {
-  fill: none;
-  stroke: darkgray;
-  stroke-width: 1.5px;
-}
-
-.point {
-  fill: darkgray;
-  opacity: 0.5;
-}
-
-.line.vertical {
-  opacity: 0.5;
-}
-
-.line.historical {
-  stroke: black;
-}
-
-.line.low-scenario {
-  stroke: orange;
-}
-
-.line.medium-scenario {
-  stroke: red;
-}
-
-.line.high-scenario {
-  stroke: purple;
+#downloader {
+  background-color: gainsboro;
+  border: 3px solid dimgray;
+  padding: 1.2em;
 }
