@@ -54,9 +54,24 @@ data_sources:
   <p>
     Start by selecting the location for which you’d like
     sea-level rise data:
-    {% include location_search.html %}
-    <input type="submit" value="Update location">
   </p>
+
+    {% include location_search.html %}
+
+  <p>Then select an <u>emissions scenario</u>:</p>
+
+  <ul class="scenario-selector">
+  {% for scenario in site.data.scenarios %}
+  <li data-scenario="{{ scenario.id }}">
+    <label><input type="radio" name="scenario" value="{{ scenario.id }}"
+      {% if scenario.id == 'high' %}checked{% endif %}>
+        <span class="usa-button usa-button-secondary">{{ scenario.label }}</span>
+      </label>
+    </li>
+  {% endfor %}
+  </ul>
+
+  <input type="submit" value="Submit">
 
   <climate-slider id="year" name="year"
     min="{{ site.data.timeline.start }}"
