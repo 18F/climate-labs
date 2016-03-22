@@ -5,6 +5,13 @@ svg {
   border: 1px solid black;
 }
 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  stroke-width: 2px;
+}
+
 .line {
   fill: none;
   stroke: darkgray;
