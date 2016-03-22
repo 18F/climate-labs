@@ -29,10 +29,9 @@
     });
 
     downloadEl.addEventListener('click', function (e) {
-      alert('Yup, now you would download stuff');
+      d3.select('#downloader').attr('aria-hidden', false);
     });
   } else {
-    d3.select('#no-location')
-      .attr('aria-hidden', false);
+    d3.select('#no-location').attr('aria-hidden', false);
   }
 })(window);

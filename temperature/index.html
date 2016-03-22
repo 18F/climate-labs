@@ -18,27 +18,27 @@ scripts:
   var HISTORICAL_DATA = [
     {
       year: 2005,
-      numberOfDays: 3
+      numberOfDays: 23
     },
     {
       year: 2006,
-      numberOfDays: 4
+      numberOfDays: 22
     },
     {
       year: 2007,
-      numberOfDays: 6
+      numberOfDays: 23
     },
     {
       year: 2008,
-      numberOfDays: 8
+      numberOfDays: 24
     },
     {
       year: 2009,
-      numberOfDays: 10
+      numberOfDays: 25
     },
     {
       year: 2010,
-      numberOfDays: 14
+      numberOfDays: 28
     },
     {
       year: 2011,
@@ -119,4 +119,31 @@ scripts:
     </temperature-chart>
     <button id="download" role="button">Download</button>
   </div>
+</section>
+
+<section id="downloader" aria-hidden="true">
+  <h2>Download CSV</h2>
+  <form>
+    <fieldset class="usa-fieldset-inputs usa-sans">
+      <legend class="usa-sr-only">Model selection</legend>
+      <ul class="usa-unstyled-list">
+        <li>
+          <input id="medium-model" type="checkbox"
+            name="medium-model" value="medium-model" checked="">
+          <label for="medium-model">Medium model</label>
+        </li>
+        <li>
+          <input id="ten-percent-model" type="checkbox"
+            name="ten-percent-model" value="ten-percent-model" checked="">
+          <label for="ten-percent-model">10th percentile model</label>
+        </li>
+        <li>
+          <input id="ninety-percent-model" type="checkbox"
+            name="ninety-percent-model" value="ninety-percent-model" checked="">
+          <label for="ninety-percent-model">90th percentile model</label>
+        </li>
+      </ul>
+    </fieldset>
+    <button role="button" class="usa-button usa-button-big">Download</button>
+  </form>
 </section>

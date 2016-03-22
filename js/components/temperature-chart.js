@@ -14,11 +14,11 @@
         this.year = this.getAttribute('year');
 
         svg.append('g')
-         .attr('class', 'x axis')
-         .attr('transform', 'translate(0, ' + (this.height - this.margin) + ')')
-         .call(xAxis);
+          .attr('class', 'x axis')
+          .attr('transform', 'translate(0, ' + (this.height - this.margin) + ')')
+          .call(xAxis);
 
-         svg.append('g')
+        svg.append('g')
           .attr('class', 'y axis')
           .attr('transform', 'translate(' + this.margin + ', 0)')
           .call(yAxis)
@@ -70,11 +70,6 @@
             .y(function(d) { return this.y(d.numberOfDays); });
         }
       },
-      lowNumberOfDays: {
-        get: function () {
-          return d3.min(getNumberOfDays(HISTORICAL_DATA, LOW_SCENARIO));
-        }
-      },
       margin: {
         get: function () {
           return 50;
@@ -96,7 +91,7 @@
         get: function () {
           return d3.scale.linear()
             .range([this.height - this.margin, this.margin])
-            .domain([this.lowNumberOfDays, this.highNumberOfDays]);
+            .domain([0, this.highNumberOfDays]);
         }
       },
       year: {
