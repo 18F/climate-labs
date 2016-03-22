@@ -1,10 +1,63 @@
 (function(exports) {
 
-  var SUBDOMAINS = 'a b c d'.split(' ');
+  var CURSOR_STROKE = '#f0f';
+  var CURSOR_RADIUS = 6;
+
+  // XXX this is as far in as the NOAA tiles go
+  var MAX_ZOOM = 15;
+
+  var extend = function(obj) {
+    for (var i = 1; i < arguments.length; i++) {
+      var ext = arguments[i];
+      if (ext) {
+        for (var k in ext) {
+          obj[k] = ext[k];
+        }
+      }
+    }
+    return obj;
+  };
+
+  var createEsriSpec = function(name, options) {
+    var spec = {
+      url: 'https://{s}.arcgisonline.com/ArcGIS/rest/services/' + name + '/MapServer/tile/{z}/{y}/{x}',
+      subdomains: ['server', 'services'],
+      attribution: 'ESRI'
+    };
+    if (options) {
+      extend(spec, options);
+    }
+    return spec;
+  };
+
+  var createStamenLayer = function(name) {
+    return {
+      url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/' + name + '/{z}/{x}/{y}.png',
+      subdomains: 'a b c d'.split(' '),
+      // see <http://maps.stamen.com/#howto> for full attribution
+      attribution: 'Stamen Design under CC BY 3.0; data by OSM under ODbL'
+    };
+  };
+
   var TILE_LAYERS = {
-    background: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png',
-    labels: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}.png',
-    slr: 'https://{s}.coast.noaa.gov/arcgis/rest/services/dc_slr/slr_{depth}ft/MapServer/tile/{z}/{y}/{x}'
+    background: createStamenLayer('toner-lite'),
+    labels: createStamenLayer('toner-labels'),
+    gray: createEsriSpec('Canvas/World_Light_Gray_Base'),
+    satellite: createEsriSpec('World_Imagery'),
+    slr: {
+      url: 'https://{s}.coast.noaa.gov/arcgis/rest/services/dc_slr/slr_{depth}ft/MapServer/tile/{z}/{y}/{x}',
+      subdomains: ['www', 'maps', 'maps1', 'maps2'],
+      maxZoom: 15,
+      attribution: 'NOAA'
+    },
+  };
+
+  TILE_LAYERS.background = TILE_LAYERS.satellite;
+
+  var createTileLayer = function(id, options) {
+    var layer = TILE_LAYERS[id];
+    options = extend({}, layer, options);
+    return L.tileLayer(layer.url, options);
   };
 
   var parseLatLng = function(str) {
@@ -77,7 +130,8 @@
           center: center,
           zoom: zoom,
           // disable scroll wheel zooming by default
-          scrollWheelZoom: false
+          scrollWheelZoom: false,
+          maxZoom: MAX_ZOOM
         };
 
         var interactive = this.getAttribute('interactive') === 'true';
@@ -92,6 +146,8 @@
         }
 
         var map = L.map(container, options);
+        // remove the annoying Leaflet link in the attribution
+        map.attributionControl.setPrefix('');
 
         var move = dispatchMapEvent('move').bind(this);
         ['zoomstart', 'zoomend', 'dragstart', 'dragend']
@@ -112,25 +168,30 @@
           }
         });
 
-        var layerName = this.getAttribute('tiles') ||
-          Object.keys(TILE_LAYERS)[0];
+        var layerName = this.getAttribute('tiles') || 'background';
 
-        var tileUrl = TILE_LAYERS[layerName] || layerName;
-        var tiles = L.tileLayer(tileUrl, {
-            subdomains: SUBDOMAINS
-          })
+        var tiles = createTileLayer(layerName)
           .addTo(map);
 
         var depth = +this.getAttribute('depth') || 0;
-        this.xtag.depthLayer = L.tileLayer(TILE_LAYERS.slr, {
+        this.xtag.depthLayer = createTileLayer('slr', {
             depth: depth,
-            subdomains: ['www', 'maps', 'maps1', 'maps2']
+            opacity: .8
           })
           .addTo(map);
 
-        L.tileLayer(TILE_LAYERS.labels, {
-            subdomains: SUBDOMAINS,
+        createTileLayer('labels', {
             opacity: .8
+          })
+          .addTo(map);
+
+        this.xtag.cursor = L.circleMarker([0, 0], {
+            radius: CURSOR_RADIUS,
+            opacity: 0,
+            color: CURSOR_STROKE,
+            fillOpacity: 0,
+            clickable: false,
+            pointerEvents: 'none'
           })
           .addTo(map);
 
@@ -149,29 +210,36 @@
     },
 
     accessors: {
+
+      map: {
+        get: function() {
+          return this.xtag.map;
+        }
+      },
+
       center: {
         get: function() {
-          return this.xtag.map.getCenter();
+          return this.map.getCenter();
         },
         set: function(value) {
           var center = parseLatLng(value);
-          return center ? this.xtag.map.setView(center) : false;
+          return center ? this.map.setView(center) : false;
         }
       },
 
       zoom: {
         get: function() {
-          return this.xtag.map.getZoom();
+          return this.map.getZoom();
         },
         set: function(value) {
           var zoom = +value;
-          return isNaN(zoom) ? false : this.xtag.map.setZoom(zoom);
+          return isNaN(zoom) ? false : this.map.setZoom(zoom);
         }
       },
 
       bbox: {
         get: function() {
-          var bounds = this.xtag.map.getBounds();
+          var bounds = this.map.getBounds();
           return [
             bounds.getWest(),
             bounds.getNorth(),
@@ -183,7 +251,7 @@
           if (!bbox || bbox.length !== 4) {
             throw new Error('Expected [lat,lng,lat,lng]; got: ' + String(bbox));
           }
-          return this.xtag.map.fitBounds([
+          return this.map.fitBounds([
             [bbox[1], bbox[0]],
             [bbox[3], bbox[2]]
           ]);
@@ -195,26 +263,55 @@
           return this.xtag.depthLayer.options.depth;
         },
         set: function(depth) {
-          depth = +depth;
           if (isNaN(depth)) {
+            console.warn('invalid depth:', depth);
             return false;
           }
+          depth = +depth;
           if (depth !== this.depth) {
             var layer = this.xtag.depthLayer;
             layer.options.depth = depth;
             layer.redraw();
           }
         }
+      },
+
+      cursor: {
+        get: function() {
+          return this.xtag.cursor;
+        }
       }
+
     },
 
     methods: {
-      addLayer: function(layer) {
-        return this.xtag.map.add(layer);
-      },
-      removeLayer: function(layer) {
-        return this.xtag.map.remove(layer);
+
+      sync: function(other) {
+        var moving = false;
+        var self = this;
+        this.map
+          .on('move', function() {
+            moving = true;
+            other.map.setView(this.getCenter(), this.getZoom(), {animate: false});
+            moving = false;
+          })
+          .on('mouseover', function(e) {
+            other.cursor.setStyle({opacity: 1});
+          })
+          .on('mousemove', function(e) {
+            other.cursor.setLatLng(e.latlng);
+          })
+          .on('mouseout', function() {
+            other.cursor.setStyle({opacity: 0});
+          });
+
+        other.map.on('move', function() {
+          if (!moving) {
+            self.map.setView(this.getCenter(), this.getZoom(), {animate: false});
+          }
+        });
       }
+
     },
 
   });
