@@ -1,6 +1,6 @@
 - id: status-quo
   label: Status quo - high
-  rcp: 8.6
+  rcp: 8.5
   description: ''
   slr:
     2010: [0, 0, 1]
