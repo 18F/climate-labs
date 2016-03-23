@@ -50,7 +50,7 @@ data_sources:
   };
 </script>
 
-<form id="controls" action="{{ page.url }}">
+<form id="controls" action="{{ site.baseurl }}{{ page.url }}">
   <p>
     Start by selecting the location for which you’d like
     sea-level rise data:
@@ -156,7 +156,7 @@ data_sources:
       </button>
 
       <form id="upload"
-        action="{{ page.url }}" method="POST"
+        action="{{ site.baseurl }}{{ page.url }}" method="POST"
         aria-hidden="true" class="usa-accordion-content">
         <p>
           Upload your own ESRI Shapefile (<u>?</u>) so that you can gauge sea level
