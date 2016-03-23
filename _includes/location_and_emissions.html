@@ -1,0 +1,55 @@
+<form id="controls" action="{{ page.url }}">
+  <p>
+    Start by selecting the location for which you’d like
+    sea-level rise data:
+  </p>
+
+  <input name="location" type="text" list="search-locations" placeholder="Search for a location">
+
+  <datalist id="search-locations">
+  {% for location in site.data.locations %}
+    <option>{{ location.label }}</option>
+  {% endfor %}
+  </datalist>
+
+  <script>
+  LOCATIONS = {{ site.data.locations | jsonify }};
+  </script>
+
+  <p>Then select an <u title="what do these mean?">emissions scenario</u>:</p>
+
+  <ul class="scenario-selector">
+
+    <li data-scenario="status-quo">
+      <label title="">
+        <input type="radio" name="scenario" value="status-quo">
+        <span class="usa-button usa-button-primary-alt">Status quo - high (8.5)</span>
+      </label>
+    </li>
+
+    <li data-scenario="intermediate">
+      <label title="">
+        <input type="radio" name="scenario" value="intermediate">
+        <span class="usa-button usa-button-primary-alt">Intermediate (4.5)</span>
+      </label>
+    </li>
+
+    <li data-scenario="low">
+      <label title="">
+        <input type="radio" name="scenario" value="low">
+        <span class="usa-button usa-button-primary-alt">Lower (2.6)</span>
+      </label>
+    </li>
+
+  </ul>
+
+  <input type="submit" value="Submit">
+
+  <!-- <climate-slider id="year" name="year" min="2010" max="2100" step="10" label="true" role="slider" aria-valuemin="2010" aria-valuemax="2100" aria-valuenow="0">
+
+    <climate-area-chart data-values="{&quot;2010&quot;:[0,0,1],&quot;2020&quot;:[0,1,1],&quot;2030&quot;:[1,2,2],&quot;2040&quot;:[2,3,4],&quot;2050&quot;:[3,3,4],&quot;2060&quot;:[3,3,4],&quot;2070&quot;:[4,4,5],&quot;2080&quot;:[4,4,5],&quot;2090&quot;:[5,5,6],&quot;2100&quot;:[5,5,6]}">
+    <svg width="980" height="34"><g class="axis y-axis" transform="translate(980,0)"><path class="domain" d="M-6,0H0V34H-6"></path></g><g class="axis x-axis"></g><path class="area" d="M10,NaNQ96.22222222222221,NaN,117.77777777777777,NaNC150.11111111111111,NaN,193.2222222222222,NaN,225.55555555555554,NaNS301,NaN,333.3333333333333,NaNS408.7777777777777,NaN,441.1111111111111,NaNS516.5555555555555,NaN,548.8888888888889,NaNS624.3333333333333,NaN,656.6666666666666,NaNS732.1111111111111,NaN,764.4444444444445,NaNS839.8888888888888,NaN,872.2222222222222,NaNQ893.7777777777777,NaN,980,NaNL980,34Q893.7777777777777,34,872.2222222222222,34C839.8888888888888,34,796.7777777777778,34,764.4444444444445,34S689,34,656.6666666666666,34S581.2222222222223,34,548.8888888888889,34S473.44444444444446,34,441.1111111111111,34S365.66666666666663,34,333.3333333333333,34S257.88888888888886,34,225.55555555555554,34S150.11111111111111,34,117.77777777777777,34Q96.22222222222221,34,10,34Z"></path></svg></climate-area-chart>
+
+    <input type="hidden" name="year" value="0">
+  <div class="climate-slider-thumb" style="left: 0%;"><span class="climate-slider-label" style="margin-left: -10px;">0</span></div></climate-slider> -->
+</form>

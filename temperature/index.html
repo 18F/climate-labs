@@ -4,6 +4,7 @@ layout: page
 
 stylesheets:
 - temperature.css
+- scenario-selector.css
 
 scripts:
 - vendor/document-register-element.js
@@ -89,12 +90,7 @@ scripts:
   });
 </script>
 
-<form id="controls">
-  <p>
-    You've chosen: {% include location_search.html %}
-    <input type="submit" value="Update location">
-  </p>
-</form>
+{% include location_and_emissions.html %}
 
 <section id="no-location" aria-hidden="true">
   <p>Please select a location.</p>
