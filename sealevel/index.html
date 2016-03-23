@@ -58,16 +58,17 @@ data_sources:
 
     {% include location_search.html %}
 
-  <p>Then select an <u>emissions scenario</u>:</p>
+  <p>Then select an <u title="what do these mean?">emissions scenario</u>:</p>
 
   <ul class="scenario-selector">
   {% for scenario in site.data.scenarios %}
   <li data-scenario="{{ scenario.id }}">
-    <label><input type="radio" name="scenario" value="{{ scenario.id }}"
+    <label title="{{ scenario.description }}" >
+      <input type="radio" name="scenario" value="{{ scenario.id }}"
       {% if scenario.id == 'high' %}checked{% endif %}>
-        <span class="usa-button usa-button-secondary">{{ scenario.label }}</span>
-      </label>
-    </li>
+      <span class="usa-button usa-button-primary-alt">{{ scenario.label }} ({{ scenario.rcp }})</span>
+    </label>
+  </li>
   {% endfor %}
   </ul>
 
@@ -154,7 +155,8 @@ data_sources:
         Upload your own data
       </button>
 
-      <form action="{{ page.url }}" id="upload"
+      <form id="upload"
+        action="{{ page.url }}" method="POST"
         aria-hidden="true" class="usa-accordion-content">
         <p>
           Upload your own ESRI Shapefile (<u>?</u>) so that you can gauge sea level
