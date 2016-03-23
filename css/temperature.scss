@@ -2,8 +2,41 @@
 # for temperature page
 ---
 
-#downloader {
-  background-color: gainsboro;
-  border: 3px solid dimgray;
-  padding: 1.2em;
+.usa-accordion button,
+.usa-accordion-bordered button {
+  background-image: none;
+}
+
+form label:nth-of-type(1) {
+  margin-top: 0;
+}
+
+.low {
+  color: orange;
+}
+
+.high {
+  color: purple;
+}
+
+.likely {
+  color: red;
+}
+
+.usa-accordion {
+  width: 100%;
+}
+
+#results {
+  font-size: 1.4em;
+}
+
+fieldset {
+  display: inline-block;
+  margin-right: 4em;
+}
+
+a[role="button"] {
+  display: block;
+  width: 35%;
 }

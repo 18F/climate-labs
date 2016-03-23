@@ -26,12 +26,9 @@
             .attr('x', -10)
             .attr("y", 16)
             .attr("dy", ".71em")
-            .text('Number of days');
+            .text('Number of temperature streaks');
 
-        this.drawScenario(HISTORICAL_DATA, 'historical');
-        this.drawScenario(LOW_SCENARIO, 'low-scenario');
-        this.drawScenario(MEDIUM_SCENARIO, 'medium-scenario');
-        this.drawScenario(HIGH_SCENARIO, 'high-scenario');
+        this.render();
       },
       attributeChanged: function(name, previous, value) {
         switch (name) {
@@ -39,6 +36,7 @@
           case 'min-temp':
           case 'day-count':
             this[name] = value;
+            this.render();
         }
       }
     },
@@ -105,26 +103,26 @@
       },
     },
     methods: {
-      drawPoints: function (year) {
-        var low = LOW_SCENARIO.filter(function(d) {
-          return d.year === year;
-        })[0];
-        var medium = MEDIUM_SCENARIO.filter(function(d) {
-          return d.year === year;
-        })[0];
-        var high = HIGH_SCENARIO.filter(function(d) {
-          return d.year === year;
-        })[0];
+      render: function () {
+        this.svg.selectAll('.line').remove();
 
-        var points = this.svg.selectAll('circle')
-          .data([low, medium, high])
+        this.drawScenario(HISTORICAL_DATA, 'historical');
+        this.drawScenario(LOW_SCENARIO, 'low-scenario');
+        this.drawScenario(MEDIUM_SCENARIO, 'medium-scenario');
+        this.drawScenario(HIGH_SCENARIO, 'high-scenario');
+        this.highlightYear(this.year);
+      },
+      drawPoints: function (year) {
+        var d = this.getPointsForYear(year);
+        var circles = this.svg.selectAll('circle')
+          .data([d.low, d.medium, d.high])
           .enter().append('circle')
           .attr('class', 'point')
           .attr('r', 3)
           .attr('cx', this.x(year))
           .attr('cy', function (d) { return this.y(d.numberOfDays); }.bind(this));
 
-        return points;
+        return circles;
       },
       drawScenario: function (data, className) {
         return this.svg.append('path').attr('class', 'line ' + className)
@@ -138,10 +136,30 @@
           .attr('y2', this.y(this.highNumberOfDays))
           .attr('class', 'line vertical');
       },
+      getPointsForYear: function (year) {
+        return {
+          low: LOW_SCENARIO.filter(function(d) {
+              return d.year === year;
+            })[0],
+          medium: MEDIUM_SCENARIO.filter(function(d) {
+              return d.year === year;
+            })[0],
+          high: HIGH_SCENARIO.filter(function(d) {
+              return d.year === year;
+            })[0]
+        };
+      },
       highlightYear: function (year) {
         if (year > this.lastYear) return;
         this.svg.selectAll('.vertical').remove();
         this.svg.selectAll('.point').remove();
+
+        xtag.fireEvent(this, 'change:chart', {
+          detail: {
+            year: year,
+            points: this.getPointsForYear(year)
+          }
+        });
 
         return {
           line: this.drawVerticalLine(year),

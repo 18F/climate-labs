@@ -1,5 +1,5 @@
 ---
-title: Extreme Temperatures
+title: Extreme temperatures
 layout: page
 
 stylesheets:
@@ -92,12 +92,19 @@ scripts:
 <form id="controls">
   <p>
     You've chosen: {% include location_search.html %}
-    <input type="submit" value="Update Location">
+    <input type="submit" value="Update location">
   </p>
 </form>
 
 <section id="no-location" aria-hidden="true">
   <p>Please select a location.</p>
+</section>
+
+<section>
+  <p>The graph below compares the low-end, mid-range, and high-end extreme temperature projections for <span class="year">2018</span>.</p>
+  <p>Each line on the graph represents the likely number of extreme temperature streaks predicted for a given year. Note that the <span class="low">low-end projection</span> is indicated in orange, the <span class="likely">mid-range projection</span> is in red, and the <span class="high">high-end projection</span> is in purple.</p>
+  <p>Change the specified year, temperature threshold, and consecutive days values by using the appropriate drop-downs.</p>
+  <p>To download a CSV of customized extreme-temperature projection data, specify your year range and click Download graph.</p>
 </section>
 
 <section role="main" aria-hidden="false">
@@ -106,46 +113,91 @@ scripts:
     <input type="number" id="year" name="year"
         step="1" min="2016" max="2021" value="2018">
 
-    <label for="temp">Above Degrees (Fahrenheit)</label>
+    <label for="temp">Above degrees (Fahrenheit)</label>
     <input type="number" id="temp" name="temp"
         step="1" min="80" max="110" value="90">
 
-    <label for="days">Consecutive Days</label>
+    <label for="days">Consecutive days</label>
     <input type="number" id="days" name="days"
         step="1" min="1" max="10" value="1">
+
+    <p id="results">In <span class="year">2018</span>,
+      <span class="location">Seattle, Washington</span> may experience
+      between <span class="low" id="low">49</span> and <span class="high"
+      id="high">54</span> extreme-temperature streaks, with <span
+      class="likely" id="likely">51</span> streaks being the most
+      likely number.
+    </p>
+
   </form>
   <div class="usa-width-one-half">
-    <temperature-chart year="2018" min-temp="90" day-count="1">
+    <temperature-chart year="2017" min-temp="90" day-count="1">
     </temperature-chart>
-    <button id="download" role="button">Download</button>
   </div>
 </section>
 
-<section class="usa-width-one-whole" id="downloader" aria-hidden="true">
-  <div>
-    <h2>Download CSV</h2>
-    <form>
-      <fieldset class="usa-fieldset-inputs usa-sans">
-        <legend class="usa-sr-only">Model selection</legend>
-        <ul class="usa-unstyled-list">
-          <li>
-            <input id="medium-model" type="checkbox"
-              name="medium-model" value="medium-model" checked>
-            <label for="medium-model">Medium model</label>
-          </li>
-          <li>
-            <input id="ten-percent-model" type="checkbox"
-              name="ten-percent-model" value="ten-percent-model">
-            <label for="ten-percent-model">10th percentile model</label>
-          </li>
-          <li>
-            <input id="ninety-percent-model" type="checkbox"
-              name="ninety-percent-model" value="ninety-percent-model">
-            <label for="ninety-percent-model">90th percentile model</label>
-          </li>
-        </ul>
-      </fieldset>
-      <button role="button" class="usa-button usa-button-big">Download 15.4 MB file</button>
-    </form>
-  </div>
+<section class="usa-width-one-whole">
+  <ul class="usa-accordion usa-accordion-bordered usa-unstyled-list">
+    <li>
+      <button is="aria-toggle" aria-controls="download" aria-expanded="true" class="usa-button-unstyled">
+        Download data
+      </button>
+
+      <div class="usa-accordion-content" aria-expanded="true" aria-hidden="false">
+        <form id="download">
+          <fieldset class="usa-fieldset-inputs usa-sans">
+            <legend>Emission scenario</legend>
+            <ul class="usa-unstyled-list">
+              <li>
+                <input id="high-emissions" type="checkbox"
+                  name="high-emissions" checked>
+                <label for="high-emissions">Status quo - high</label>
+              </li>
+              <li>
+                <input id="intermediate-emissions" type="checkbox"
+                  name="intermediate-emissions">
+                <label for="intermediate-emissions">Intermediate</label>
+              </li>
+              <li>
+                <input id="lower-emissions" type="checkbox"
+                  name="lower-emissions">
+                <label for="lower-emissions">Lower</label>
+              </li>
+            </ul>
+          </fieldset>
+          <fieldset class="usa-fieldset-inputs usa-sans">
+            <legend>Projection</legend>
+            <ul class="usa-unstyled-list">
+              <li>
+                <input id="high-projection" type="checkbox"
+                  name="high-projection">
+                <label for="high-projection">High-end projection</label>
+              </li>
+              <li>
+                <input id="mid-projection" type="checkbox"
+                  name="mid-projection">
+                <label for="mid-projection">Mid-range projection</label>
+              </li>
+              <li>
+                <input id="low-projection" type="checkbox"
+                  name="low-projection">
+                <label for="low-projection">Low-end projection</label>
+              </li>
+            </ul>
+          </fieldset>
+          <a role="button" class="usa-button" href="#">Download 15.4 MB file</a>
+        </form>
+      </div>
+    </li>
+
+    <li>
+      <button is="aria-toggle" aria-controls="upload" aria-expanded="true" class="usa-button-unstyled">
+        Download chart
+      </button>
+
+      <form action="/sealevel/" id="upload" aria-hidden="false" class="usa-accordion-content" aria-expanded="true">
+      </form>
+    </li>
+
+  </ul>
 </section>
