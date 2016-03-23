@@ -34,7 +34,7 @@
           // don't fill in hidden inputs
           break;
         default:
-          this.value = val;
+          this.value = val || '';
           break;
       }
     });
