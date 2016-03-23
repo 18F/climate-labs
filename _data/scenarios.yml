@@ -1,6 +1,7 @@
-- id: high
-  label: High
-  description: Per-capita emissions increase over time.
+- id: status-quo
+  label: Status quo - high
+  rcp: 8.6
+  description: ''
   slr:
     2010: [0, 0, 1]
     2020: [0, 1, 1]
@@ -15,9 +16,10 @@
     2080: [4, 4, 5]
     2090: [5, 5, 6]
     2100: [5, 5, 6]
-- id: status-quo
-  label: Status Quo
-  description: Emissions increase relative to population growth.
+- id: intermediate
+  label: Intermediate
+  rcp: 4.5
+  description: ''
   slr:
     2010: [0, 0, 0]
     2020: [0, 0, 0]
@@ -33,8 +35,9 @@
     2090: [3, 4, 5]
     2100: [3, 4, 5]
 - id: low
-  label: Low Emissions
-  description: A very unlikely low emissions scenario.
+  label: Lower
+  description: ''
+  rcp: 2.6
   slr:
     2010: [0, 0, 0]
     2020: [0, 0, 0]
