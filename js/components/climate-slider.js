@@ -134,12 +134,6 @@
 
         var input = this.querySelector('input');
         if (input) {
-          var slider = this;
-          this.xtag.onsliderchange = function() {
-            console.log('input change:', this.value);
-            slider.value = this.value;
-          };
-          input.addEventListener('change', this.xtag.onsliderchange);
           this.xtag.input = input;
           if (input.hasAttribute('value')) {
             this.value = input.value;
@@ -166,7 +160,21 @@
       step: numericAccessor('step', 1),
       value: numericAccessor('value', function() {
         return this.min;
-      })
+      }),
+
+      // the type is "range"
+      type: {
+        get: function() {
+          return 'range';
+        }
+      },
+
+      // the name property reflects its name attribute
+      name: {
+        attribute: {
+          name: 'name'
+        }
+      }
     },
 
     methods: {
@@ -189,6 +197,7 @@
 
         // if there's an underlying input, set its value
         if (this.xtag.input) {
+          console.log('setting input value:', this.xtag.input, '=', value);
           this.xtag.input.value = value;
         }
 

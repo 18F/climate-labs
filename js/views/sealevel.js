@@ -21,14 +21,17 @@
   };
 
   // update all of the form control values from the query string
-  d3.selectAll('form [name]')
+  var controls = d3.selectAll('#controls [name]')
     .each(function() {
       var key = this.name;
       var val = query[key];
       switch (this.type) {
         case 'radio':
         case 'checkbox':
-          this.checked = this.value === val;
+          this.checked = (this.value === val);
+          break;
+        case 'hidden':
+          // don't fill in hidden inputs
           break;
         default:
           this.value = val;
