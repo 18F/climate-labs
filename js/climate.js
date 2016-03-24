@@ -1,6 +1,10 @@
 (function(exports) {
 
-  exports.parseQueryString = function parseQueryString(qs) {
+  /**
+   * @param {String} query
+   * @return {Object} parsed query string object
+   */
+  exports.parseQueryString = function(qs) {
     if (!qs || qs === '?') {
       return {};
     }
@@ -24,6 +28,22 @@
 
   };
 
+  /**
+   * This function both sets form values if the corresponding keys are set in
+   * the provided `data` and sets default values from the form in `data`
+   * otherwise. Usage:
+   *
+   * @example
+   * // call it on a selection of form inputs with names:
+   * var data = {};
+   * d3.selectAll('#some-form [name]')
+   *   .call(climate.mergeFormData, data);
+   *
+   * // at this point, your form inputs and data should match values
+   *
+   * @param {d3.selection} inputs
+   * @param {Object?} data
+   */
   exports.mergeFormData = function(inputs, data) {
     if (!data) {
       data = {};
