@@ -56,119 +56,125 @@ data_sources:
     sea-level rise data:
   </p>
 
-    {% include location_search.html %}
+  {% include location_search.html %}
 
-  <p>Then select an <u title="what do these mean?">emissions scenario</u>:</p>
+  <div class="has-location">
+    <p>Then select an <u title="what do these mean?">emissions scenario</u>:</p>
 
-  <ul class="scenario-selector">
-  {% for scenario in site.data.scenarios %}
-  <li data-scenario="{{ scenario.id }}">
-    <label title="{{ scenario.description }}" >
-      <input type="radio" name="scenario" value="{{ scenario.id }}"
-      {% if forloop.first %}checked{% endif %}>
-      <span class="usa-button usa-button-primary-alt">{{ scenario.label }} ({{ scenario.rcp }})</span>
-    </label>
-  </li>
-  {% endfor %}
-  </ul>
+    <ul class="scenario-selector">
+    {% for scenario in site.data.scenarios %}
+    <li data-scenario="{{ scenario.id }}">
+      <label title="{{ scenario.description }}" >
+        <input type="radio" name="scenario" value="{{ scenario.id }}"
+        {% if forloop.first %}checked{% endif %}>
+        <span class="usa-button usa-button-primary-alt">{{ scenario.label }} ({{ scenario.rcp }})</span>
+      </label>
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
 
   <input type="submit" value="Submit">
 
-  <climate-slider id="year" name="year"
-    min="{{ site.data.timeline.start }}"
-    max="{{ site.data.timeline.end }}"
-    step="{{ site.data.timeline.step }}"
-    label="true">
+  <div class="has-location">
+    <climate-slider id="year" name="year"
+      min="{{ site.data.timeline.start }}"
+      max="{{ site.data.timeline.end }}"
+      step="{{ site.data.timeline.step }}"
+      label="true">
 
-    <climate-area-chart
-      data-values='{{ site.data.scenarios[0].slr | jsonify }}'>
-    </climate-area-chart>
+      <climate-area-chart
+        data-values='{{ site.data.scenarios[0].slr | jsonify }}'>
+      </climate-area-chart>
 
-    <input type="hidden" name="year">
-  </climate-slider>
+      <input type="hidden" name="year">
+    </climate-slider>
+  </div>
 </form>
 
-<section id="no-location" aria-hidden="true">
-  <p>Please select a location.</p>
+<section class="no-location" aria-hidden="true">
+  <!-- <p>Please select a location.</p> -->
 </section>
 
-<section id="info">
-  <p>
-    <strong>The following three maps show projected sea-level
-      increases for <span data-text="year">2010</span></strong>.
-    We aggregated these data from 40 trusted sources. Because
-    different scientific models account for different impact
-    factors, there’s some variation among the data we draw on,
-    which accounts for the variations in the maps.
-
-    You can then <a href="#download">download this data</a> or
-    <a href="#upload">upload your own</a> to display it on the
-    map.
-
-  </p>
-</section>
-
-<section id="projections" aria-hidden="true" class="usa-grid usa-grid-full">
-  {% assign year = site.data.timeline.start %}
-  {% for proj in site.data.projections %}
-  <section id="proj-{{ proj.id }}" data-proj-index="{{ proj.index }}"
-    class="usa-width-one-third">
-    <h3>
-      <strong data-text="level">0</strong> ft.
-      ({{ proj.label }})
-      <!-- in <span data-text="year">2010</span> -->
-    </h3>
-    <climate-map interactive="true"></climate-map>
+<div class="has-location">
+  <section id="info">
     <p>
-      {{ proj.description.slr|default:proj.description.general }}
+      <strong>The following three maps show projected sea-level
+        increases for <span data-text="year">2010</span></strong>.
+      We aggregated these data from 40 trusted sources. Because
+      different scientific models account for different impact
+      factors, there’s some variation among the data we draw on,
+      which accounts for the variations in the maps.
+
+      You can then <a href="#download">download this data</a> or
+      <a href="#upload">upload your own</a> to display it on the
+      map.
+
     </p>
   </section>
-  {% endfor %}
-</section>
 
-<section id="next-steps">
-  <h2>Next Steps</h2>
+  <section id="projections" aria-hidden="true" class="usa-grid usa-grid-full">
+    {% assign year = site.data.timeline.start %}
+    {% for proj in site.data.projections %}
+    <section id="proj-{{ proj.id }}" data-proj-index="{{ proj.index }}"
+      class="usa-width-one-third">
+      <h3>
+        <strong data-text="level">0</strong> ft.
+        ({{ proj.label }})
+        <!-- in <span data-text="year">2010</span> -->
+      </h3>
+      <climate-map interactive="true"></climate-map>
+      <p>
+        {{ proj.description.slr|default:proj.description.general }}
+      </p>
+    </section>
+    {% endfor %}
+  </section>
 
-  <ul class="usa-accordion usa-accordion-bordered usa-unstyled-list">
-    <li>
-      <button is="aria-toggle" aria-controls="download"
-        aria-expanded="true" class="usa-button-unstyled">
-        Download data
-      </button>
+  <section id="next-steps">
+    <h2>Next Steps</h2>
 
-      <div id="download" class="usa-accordion-content">
-        <p>Data is available in the following formats:</p>
-        <ul class="usa-content-list">
-          {% for source in page.data_sources %}
-          <li>
-            <a href="{{ source.href }}">{{ source.name }}</a>
-            ({{ source.format|default:'format unknown' }}{% if source.filesize %}, {{ source.filesize }}{% endif %})
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </li>
+    <ul class="usa-accordion usa-accordion-bordered usa-unstyled-list">
+      <li>
+        <button is="aria-toggle" aria-controls="download"
+          aria-expanded="true" class="usa-button-unstyled">
+          Download data
+        </button>
 
-    <li>
-      <button is="aria-toggle" aria-controls="upload"
-        aria-expanded="false" class="usa-button-unstyled">
-        Upload your own data
-      </button>
+        <div id="download" class="usa-accordion-content">
+          <p>Data is available in the following formats:</p>
+          <ul class="usa-content-list">
+            {% for source in page.data_sources %}
+            <li>
+              <a href="{{ source.href }}">{{ source.name }}</a>
+              ({{ source.format|default:'format unknown' }}{% if source.filesize %}, {{ source.filesize }}{% endif %})
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </li>
 
-      <form id="upload"
-        action="{{ site.baseurl }}{{ page.url }}" method="POST"
-        aria-hidden="true" class="usa-accordion-content">
-        <p>
-          Upload your own ESRI Shapefile (<u>?</u>) so that you can gauge sea level
-          rise impacts on local features and infrastructure.
-        </p>
+      <li>
+        <button is="aria-toggle" aria-controls="upload"
+          aria-expanded="false" class="usa-button-unstyled">
+          Upload your own data
+        </button>
 
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-      </form>
-    </li>
+        <form id="upload"
+          action="{{ site.baseurl }}{{ page.url }}" method="POST"
+          aria-hidden="true" class="usa-accordion-content">
+          <p>
+            Upload your own ESRI Shapefile (<u>?</u>) so that you can gauge sea level
+            rise impacts on local features and infrastructure.
+          </p>
 
-  </ul>
+          <input type="file" name="file">
+          <input type="submit" value="Upload">
+        </form>
+      </li>
 
-</section>
+    </ul>
 
+  </section>
+
+</div>
