@@ -1,0 +1,199 @@
+---
+title: Extreme temperatures
+layout: page
+
+stylesheets:
+- temperature.css
+- scenario-selector.css
+
+scripts:
+- vendor/document-register-element.js
+- vendor/x-tag.js
+- vendor/d3.js
+- climate.js
+- components/temperature-chart.js
+- views/temperature.js
+---
+
+<script>
+  var HISTORICAL_DATA = [
+    {
+      year: 2005,
+      numberOfDays: 23
+    },
+    {
+      year: 2006,
+      numberOfDays: 22
+    },
+    {
+      year: 2007,
+      numberOfDays: 23
+    },
+    {
+      year: 2008,
+      numberOfDays: 24
+    },
+    {
+      year: 2009,
+      numberOfDays: 25
+    },
+    {
+      year: 2010,
+      numberOfDays: 28
+    },
+    {
+      year: 2011,
+      numberOfDays: 24
+    },
+    {
+      year: 2012,
+      numberOfDays: 30
+    },
+    {
+      year: 2013,
+      numberOfDays: 36
+    },
+    {
+      year: 2014,
+      numberOfDays: 40
+    },
+    {
+      year: 2015,
+      numberOfDays: 43
+    },
+    {
+      year: 2016,
+      numberOfDays: 45
+    }
+  ];
+
+  var FUTURE_YEARS = [2016, 2017, 2018, 2019, 2020, 2021];
+  var LOW_SCENARIO = FUTURE_YEARS.map(function(d, i){
+    return {
+      year: d,
+      numberOfDays: 45 + (i * 2)
+    };
+  });
+
+  var MEDIUM_SCENARIO = FUTURE_YEARS.map(function(d, i){
+    return {
+      year: d,
+      numberOfDays: 45 + (i * 3)
+    };
+  });
+
+  var HIGH_SCENARIO = FUTURE_YEARS.map(function(d, i){
+    return {
+      year: d,
+      numberOfDays: 45 + (i * 4.5)
+    };
+  });
+</script>
+
+{% include location_and_emissions.html data-type="extreme temperature" %}
+
+<section id="no-location" aria-hidden="true">
+  <p>Please select a location.</p>
+</section>
+
+<section>
+  <p>The graph below compares the low-end, mid-range, and high-end extreme temperature projections for <span class="year">2018</span>.</p>
+  <p>Each line on the graph represents the likely number of extreme temperature streaks predicted for a given year. Note that the <span class="low">low-end projection</span> is indicated in orange, the <span class="likely">mid-range projection</span> is in red, and the <span class="high">high-end projection</span> is in purple.</p>
+  <p>Change the specified year, temperature threshold, and consecutive days values by using the appropriate drop-downs.</p>
+</section>
+
+<section role="main" aria-hidden="false">
+  <form class="usa-width-one-half" id="filter">
+    <label for="year">Year</label>
+    <input type="number" id="year" name="year"
+        step="1" min="2016" max="2021" value="2018">
+
+    <label for="temp">Above degrees (Fahrenheit)</label>
+    <input type="number" id="temp" name="temp"
+        step="1" min="80" max="110" value="90">
+
+    <label for="days">Consecutive days</label>
+    <input type="number" id="days" name="days"
+        step="1" min="1" max="10" value="1">
+
+    <p id="results">In <span class="year">2018</span>,
+      <span class="location">Seattle, Washington</span> may experience
+      between <span class="low" id="low">49</span> and <span class="high"
+      id="high">54</span> extreme-temperature streaks, with <span
+      class="likely" id="likely">51</span> streaks being the most
+      likely number.
+    </p>
+
+  </form>
+  <div class="usa-width-one-half">
+    <temperature-chart year="2017" min-temp="90" day-count="1">
+    </temperature-chart>
+  </div>
+</section>
+
+<section class="usa-width-one-whole">
+  <ul class="usa-accordion usa-accordion-bordered usa-unstyled-list">
+    <li>
+      <button is="aria-toggle" aria-controls="download" aria-expanded="true" class="usa-button-unstyled">
+        Download data
+      </button>
+
+      <div class="usa-accordion-content" aria-expanded="true" aria-hidden="false">
+        <form id="download">
+          <fieldset class="usa-fieldset-inputs usa-sans">
+            <legend>Emission scenario</legend>
+            <ul class="usa-unstyled-list">
+              <li>
+                <input id="high-emissions" type="checkbox"
+                  name="high-emissions" checked>
+                <label for="high-emissions">Status quo - high</label>
+              </li>
+              <li>
+                <input id="intermediate-emissions" type="checkbox"
+                  name="intermediate-emissions">
+                <label for="intermediate-emissions">Intermediate</label>
+              </li>
+              <li>
+                <input id="lower-emissions" type="checkbox"
+                  name="lower-emissions">
+                <label for="lower-emissions">Lower</label>
+              </li>
+            </ul>
+          </fieldset>
+          <fieldset class="usa-fieldset-inputs usa-sans">
+            <legend>Projection</legend>
+            <ul class="usa-unstyled-list">
+              <li>
+                <input id="high-projection" type="checkbox"
+                  name="high-projection">
+                <label for="high-projection">High-end projection</label>
+              </li>
+              <li>
+                <input id="mid-projection" type="checkbox"
+                  name="mid-projection">
+                <label for="mid-projection">Mid-range projection</label>
+              </li>
+              <li>
+                <input id="low-projection" type="checkbox"
+                  name="low-projection">
+                <label for="low-projection">Low-end projection</label>
+              </li>
+            </ul>
+          </fieldset>
+          <a role="button" class="usa-button" href="#">Download 15.4 MB file</a>
+        </form>
+      </div>
+    </li>
+
+    <li>
+      <button is="aria-toggle" aria-controls="upload" aria-expanded="true" class="usa-button-unstyled">
+        Download chart
+      </button>
+
+      <form action="/sealevel/" id="upload" aria-hidden="false" class="usa-accordion-content" aria-expanded="true">
+        <a role="button" class="usa-button" href="#">Download chart as image</a>
+      </form>
+    </li>
+
+  </ul>
+</section>
