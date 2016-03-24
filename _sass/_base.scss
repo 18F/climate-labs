@@ -22,3 +22,12 @@ main > section + section {
 [aria-hidden=true] {
   display: none;
 }
+
+section + section {
+  margin-top: 1.5em;
+}
+
+button[formaction] + button[formaction],
+.usa-button-disabled + .usa-button-disabled {
+  display: block;
+}
