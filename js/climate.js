@@ -24,4 +24,40 @@
 
   };
 
+  exports.mergeFormData = function(inputs, data) {
+    if (!data) {
+      data = {};
+    }
+    inputs.each(function() {
+      var key = this.name;
+      var val;
+      if (key in data) {
+        val = data[key];
+        switch (this.type) {
+          case 'radio':
+          case 'checkbox':
+            this.checked = (this.value === val);
+            break;
+          case 'hidden':
+            // don't fill in hidden inputs
+            break;
+          default:
+            this.value = val || '';
+            break;
+        }
+      } else {
+        var active = true;
+        switch (this.type) {
+          case 'radio':
+          case 'checkbox':
+            active = this.checked;
+            break;
+        }
+        if (active) {
+          data[key] = this.value;
+        }
+      }
+    });
+  };
+
 })(window.climate = {});
