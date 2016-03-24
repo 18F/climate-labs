@@ -1,5 +1,5 @@
 ---
-title: Sea level rise
+title: Sea-level change
 layout: page
 
 stylesheets:
@@ -65,7 +65,7 @@ data_sources:
   <li data-scenario="{{ scenario.id }}">
     <label title="{{ scenario.description }}" >
       <input type="radio" name="scenario" value="{{ scenario.id }}"
-      {% if scenario.id == 'high' %}checked{% endif %}>
+      {% if forloop.first %}checked{% endif %}>
       <span class="usa-button usa-button-primary-alt">{{ scenario.label }} ({{ scenario.rcp }})</span>
     </label>
   </li>
