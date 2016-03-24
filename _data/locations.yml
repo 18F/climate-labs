@@ -16,3 +16,6 @@
 - id: SFO
   label: San Francisco, California
   bbox: [-122.521935,37.707998,-122.34684,37.837988]
+- id: CHI
+  label: Albany Park, Chicago, Illinois
+  bbox: [-87.748017,41.960927,-87.694746,41.976116]
