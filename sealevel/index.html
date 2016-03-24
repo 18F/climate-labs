@@ -96,7 +96,7 @@ data_sources:
   <!-- <p>Please select a location.</p> -->
 </section>
 
-<div class="has-location">
+<div class="has-location" aria-hidden="true">
   <section id="info">
     <p>
       <strong>The following three maps show projected sea-level
@@ -113,7 +113,7 @@ data_sources:
     </p>
   </section>
 
-  <section id="projections" aria-hidden="true" class="usa-grid usa-grid-full">
+  <section id="projections" class="usa-grid usa-grid-full">
     {% assign year = site.data.timeline.start %}
     {% for proj in site.data.projections %}
     <section id="proj-{{ proj.id }}" data-proj-index="{{ proj.index }}"
