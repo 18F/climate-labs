@@ -197,7 +197,7 @@
 
         // if there's an underlying input, set its value
         if (this.xtag.input) {
-          console.log('setting input value:', this.xtag.input, '=', value);
+          // console.log('setting input value:', this.xtag.input, '=', value);
           this.xtag.input.value = value;
         }
 
