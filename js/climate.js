@@ -50,9 +50,8 @@
     }
     inputs.each(function() {
       var key = this.name;
-      var val;
-      if (key in data) {
-        val = data[key];
+      var val = data[key];
+      if (val) {
         switch (this.type) {
           case 'radio':
           case 'checkbox':
