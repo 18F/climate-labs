@@ -20,5 +20,7 @@
   label: Albany Park, Chicago, Illinois
   bbox: [-87.748017,41.960927,-87.694746,41.976116]
 - id: PDX
-  label: Piedmont, Portland, Oregon
+  label: Portland, Oregon
+  bbox: [-122.836995,45.652480,-122.471849,45.432393]
+- label: Piedmont, Portland, Oregon
   bbox: [-122.679148,45.584275,-122.661320,45.566385]
