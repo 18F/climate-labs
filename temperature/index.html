@@ -90,7 +90,7 @@ scripts:
   });
 </script>
 
-{% include location_and_emissions.html %}
+{% include location_and_emissions.html data-type="extreme temperature" %}
 
 <section id="no-location" aria-hidden="true">
   <p>Please select a location.</p>
@@ -191,6 +191,7 @@ scripts:
       </button>
 
       <form action="/sealevel/" id="upload" aria-hidden="false" class="usa-accordion-content" aria-expanded="true">
+        <a role="button" class="usa-button" href="#">Download chart as image</a>
       </form>
     </li>
 
