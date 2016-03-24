@@ -91,6 +91,8 @@
         .call(updateTemplates);
     };
 
+    slider.on('change', update);
+
     update();
 
   }
