@@ -1,7 +1,7 @@
 <form id="controls" action="{{ page.url }}">
   <p>
     Start by selecting the location for which you’d like
-    sea-level rise data:
+    {{ include.data-type }} data:
   </p>
 
   <input name="location" type="text" list="search-locations" placeholder="Search for a location">
