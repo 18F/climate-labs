@@ -103,15 +103,18 @@ scripts:
 <section role="main" aria-hidden="false">
   <form class="usa-width-one-half" id="filter">
     <label for="year">Year</label>
-    <input type="number" id="year" name="year"
+    <output for="year">2018</output>
+    <input type="range" id="year" name="year"
         step="1" min="2016" max="2021" value="2018">
 
     <label for="temp">Above degrees (Fahrenheit)</label>
-    <input type="number" id="temp" name="temp"
+    <output for="temp">90</output>
+    <input type="range" id="temp" name="temp"
         step="1" min="80" max="110" value="90">
 
     <label for="days">Consecutive days</label>
-    <input type="number" id="days" name="days"
+    <output for="days">1</output>
+    <input type="range" id="days" name="days"
         step="1" min="1" max="10" value="1">
 
     <p id="results">In <span class="year">2018</span>,
