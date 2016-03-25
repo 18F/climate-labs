@@ -154,13 +154,13 @@ data_sources:
 
       <li>
         <button is="aria-toggle" aria-controls="upload"
-          aria-expanded="false" class="usa-button-unstyled">
+          aria-expanded="true" class="usa-button-unstyled">
           Upload your own data
         </button>
 
         <form id="upload"
           action="{{ site.baseurl }}{{ page.url }}" method="POST"
-          aria-hidden="true" class="usa-accordion-content">
+          aria-hidden="false" class="usa-accordion-content">
           <p>
             Upload your own ESRI Shapefile (<u>?</u>) so that you can gauge
             sea-level rise impacts on local features and infrastructure.

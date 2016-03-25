@@ -8,6 +8,7 @@ stylesheets:
 
 scripts:
 - vendor/d3.js
+- components/aria-toggle.js
 - components/temperature-chart.js
 - views/temperature.js
 ---
@@ -187,7 +188,7 @@ scripts:
         Download chart
       </button>
 
-      <form action="/sealevel/" id="upload" aria-hidden="false" class="usa-accordion-content" aria-expanded="true">
+      <form action="/sealevel/" id="upload" class="usa-accordion-content">
         <a role="button" class="usa-button" href="#">Download chart as image</a>
       </form>
     </li>
