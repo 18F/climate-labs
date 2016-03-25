@@ -79,4 +79,46 @@
     });
   };
 
+  var forEach = function(list, fn, context) {
+    return [].forEach.call(list, fn, context);
+  };
+
+  if (window.dialogPolyfill) {
+    /**
+     * If the polyfill is loaded, activate some standard helpers
+     * for <dialog> elements:
+     *
+     * 1. register each <dialog> element with the polyfill
+     * 2. find all buttons that target the dialog with
+     *    @aria-controls, and add a `click` handler to each that
+     *    opens the dialog modally.
+     * 3. add `click` handlers for the dialog's <button>
+     *    children with @data-action attributes, namely
+     *    `data-action="close"`.
+     */
+    forEach(document.querySelectorAll('dialog'), function(dialog) {
+      dialogPolyfill.registerDialog(dialog);
+
+      var selector = '[aria-controls="' + dialog.id + '"]';
+      var buttons = document.querySelectorAll(selector);
+      forEach(buttons, function(button) {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          dialog.showModal();
+        });
+      });
+
+      forEach(dialog.querySelectorAll('[data-action]'), function(button) {
+        button.addEventListener('click', function(e) {
+          var action = this.getAttribute('data-action');
+          switch (action) {
+            case 'close':
+              dialog.close();
+              break;
+          }
+        });
+      });
+    });
+  }
+
 })(window.climate = {});
