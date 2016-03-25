@@ -19,27 +19,17 @@
   <p>Then select an <u title="what do these mean?">emissions scenario</u>:</p>
 
   <ul class="scenario-selector">
-
-    <li data-scenario="status-quo">
-      <label title="">
-        <input type="radio" name="scenario" value="status-quo">
-        <span class="usa-button usa-button-primary-alt">Status quo - high (8.5)</span>
-      </label>
-    </li>
-
-    <li data-scenario="intermediate">
-      <label title="">
-        <input type="radio" name="scenario" value="intermediate">
-        <span class="usa-button usa-button-primary-alt">Intermediate (4.5)</span>
-      </label>
-    </li>
-
-    <li data-scenario="low">
-      <label title="">
-        <input type="radio" name="scenario" value="low">
-        <span class="usa-button usa-button-primary-alt">Lower (2.6)</span>
-      </label>
-    </li>
+    <ul class="scenario-selector">
+      {% for scenario in site.data.scenarios %}
+      <li data-scenario="{{ scenario.id }}">
+        <label title="{{ scenario.description }}" >
+          <input type="radio" name="scenario" value="{{ scenario.id }}"
+          {% if forloop.first %}checked{% endif %}>
+          <span class="usa-button usa-button-primary-alt">{{ scenario.label }} ({{ scenario.rcp }})</span>
+        </label>
+      </li>
+      {% endfor %}
+    </ul>
 
   </ul>
 
