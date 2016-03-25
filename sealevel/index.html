@@ -167,7 +167,7 @@ data_sources:
           </p>
 
           <input type="file" name="file">
-          <input type="submit" value="Upload">
+          <input type="submit" aria-controls="dialog-upload" value="Upload">
         </form>
       </li>
 
@@ -176,3 +176,11 @@ data_sources:
   </section>
 
 </div>
+
+<dialog id="dialog-upload">
+  <h2>Upload your own data</h2>
+
+  <p>We should say something about uploading data here.</p>
+
+  <button type="button" data-action="close">OK</button>
+</dialog>
