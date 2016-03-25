@@ -1,6 +1,18 @@
 (function(exports) {
   // requires: d3
 
+  // CustomEvent polyfill for Safari
+  var CustomEvent = window.CustomEvent;
+  if (!CustomEvent || typeof CustomEvent == 'object') {
+    CustomEvent = function CustomEvent(event, x) {
+      x = x || {};
+      var ev = document.createEvent('CustomEvent');
+      ev.initCustomEvent(event, !!x.bubbles, !!x.cancelable, x.detail || null);
+      return ev;
+    };
+    CustomEvent.prototype = window.Event.prototype;
+  }
+
   /**
    * create a numeric accessor by name (underlying values are
    * stored in `this.xtag[name]`), with an optional default
