@@ -30,21 +30,24 @@
     d3.select('#likely').text(data.medium.numberOfDays);
   });
 
-  d3.select('#year').on('change', function () {
+  d3.select('#year').on('input', function () {
     chartEl.attr('year', d3.event.target.value);
     d3.selectAll('.year').text(d3.event.target.value);
+    updateOutputLabel('year', d3.event.target.value);
   });
 
-  d3.select('#temp').on('change', function () {
+  d3.select('#temp').on('input', function () {
     var minTemp = d3.event.target.value;
     alterData(function (i) {
       return i + (90 - minTemp);
     });
     chartEl.attr('min-temp', minTemp);
+    updateOutputLabel('temp', d3.event.target.value);
   });
 
-  d3.select('#days').on('change', function () {
+  d3.select('#days').on('input', function () {
     chartEl.attr('day-count', d3.event.target.value);
+    updateOutputLabel('days', d3.event.target.value);
   });
 
   d3.select('#download [role="button"]').on('click', function () {
@@ -53,20 +56,26 @@
   });
 
   d3.select('#download').on('change', function () {
-    function calculateFileSize(n) {
-      if (n === 0) return 0;
-      return 14 + (n * 1.4);
-    }
-
-    function numberOfChecks(t) {
-      var c = Array.prototype.slice.call(t.querySelectorAll('[type="checkbox"]'));
-      return c.filter(function(d) { return d.checked; }).length;
-    }
-
     var number = numberOfChecks(d3.event.currentTarget);
     var text = ['Download', calculateFileSize(number), 'MB file'].join(' ');
     d3.select('#download [role="button"]').text(text);
   });
+
+  function calculateFileSize(n) {
+    if (n === 0) return 0;
+    return 14 + (n * 1.4);
+  }
+
+  function numberOfChecks(t) {
+    var c = Array.prototype.slice.call(t.querySelectorAll('[type="checkbox"]'));
+    return c.filter(function(d) { return d.checked; }).length;
+  }
+
+  function updateOutputLabel (id, value) {
+    if (!id) return;
+    var output = document.querySelector('output[for="' + id + '"]');
+    output.textContent = value;
+  }
 
   function alterData (factor) {
     var sets = [HISTORICAL_DATA, LOW_SCENARIO, HIGH_SCENARIO, MEDIUM_SCENARIO];
