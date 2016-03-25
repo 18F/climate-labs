@@ -24,6 +24,9 @@ github_username:  18F
 
 # scripts to load on all pages
 scripts:
+- vendor/dialog-polyfill.js
+- vendor/document-register-element.js
+- vendor/x-tag.js
 - climate.js
 
 # Build settings
