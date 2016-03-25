@@ -162,11 +162,10 @@ data_sources:
           action="{{ site.baseurl }}{{ page.url }}" method="POST"
           aria-hidden="true" class="usa-accordion-content">
           <p>
-            Upload your own ESRI Shapefile (<u>?</u>) so that you can gauge sea level
+            Upload your own data so that you can gauge sea level
             rise impacts on local features and infrastructure.
           </p>
 
-          <input type="file" name="file">
           <input type="submit" aria-controls="dialog-upload" value="Upload">
         </form>
       </li>
@@ -180,7 +179,9 @@ data_sources:
 <dialog id="dialog-upload">
   <h2>Upload your own data</h2>
 
-  <p>We should say something about uploading data here.</p>
+  <p>What options would you expect to see here?</p>
 
-  <button type="button" data-action="close">OK</button>
+  <input type="file" name="file">
+
+  <button type="button" data-action="close">Cancel</button>
 </dialog>
