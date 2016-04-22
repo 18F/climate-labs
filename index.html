@@ -10,23 +10,34 @@ sections:
 ---
 
 <header>
-  <h1>New research on how people find and use climate-change data</h1>
-</header>
+  <div class="container">
+    <h1>New research on how people find and use climate-change data</h1>
+  </div>
 
-<nav>
-  <ul>
-  {% for section in page.sections %}
-    <li><a href="#{{ section.id }}">{{ section.title }}</a></li>
-  {% endfor %}
-  </ul>
-</nav>
+  <nav>
+    <ul class="container">
+    {% for section in page.sections %}
+      <li><a href="#{{ section.id }}">{{ section.title }}</a></li>
+    {% endfor %}
+    </ul>
+  </nav>
+
+</header>
 
 <main>
   {% for section in page.sections %}
   <section id="{{ section.id }}">
-    <h1>{{ section.title }}</h1>
-    {% capture content %}{% include {{ section.id }}.md %}{% endcapture %}
-    {{ content | markdownify }}
+    <div class="container">
+      <h1>{{ section.title }}</h1>
+      {% capture content %}{% include {{ section.id }}.md %}{% endcapture %}
+      {{ content | markdownify }}
+    </div>
   </section>
   {% endfor %}
 </main>
+
+<footer>
+  <div class="container">
+    footer?
+  </div>
+</footer>
