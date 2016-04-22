@@ -167,10 +167,29 @@ section > .container {
         display: block;
         width: $icon-size;
         height: $icon-size;
-        background: $blue;
+        background-color: $blue;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: auto 65%;
         position: absolute;
         top: 0;
         left: 0;
+      }
+
+      &#planning-for-climate-change::before {
+        background-image: url($clipboard-icon);
+      }
+
+      &#reliance-on-federal-resources::before {
+        background-image: url($federal-icon);
+      }
+
+      &#tailorability-and-findability::before {
+        background-image: url($search-icon);
+      }
+
+      &#curation-and-production-tools::before {
+        background-image: url($serve-icon);
       }
     }
   }
