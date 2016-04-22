@@ -143,15 +143,59 @@ section > .container {
   position: relative;
 }
 
-#report ul {
+// "What we found" grid
+#what-we-found + ul {
+  display: block;
   list-style: none;
   padding: 0;
   margin: 0;
 
   li {
+    $icon-size: 4em;
+
+    display: block;
     list-style: none;
-    padding: 0;
+    padding: 0 0 1em ($icon-size + 1em);
+    position: relative;
     margin: 0;
+
+    h3 {
+      font-size: inherit;
+
+      &::before {
+        content: "";
+        display: block;
+        width: $icon-size;
+        height: $icon-size;
+        background: $blue;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+}
+
+#report {
+
+  .cover {
+    background: $white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .6);
+  }
+
+}
+
+// report download "button"
+.button {
+  background: $green;
+  color: $black;
+  display: block;
+  padding: 1em;
+  text-align: center;
+  text-decoration: none;
+
+  strong {
+    display: block;
   }
 }
 
