@@ -7,11 +7,23 @@ sections:
   title: Research Report
 - id: contact
   title: Contact Us
+
+header_icons:
+  - cloud
+  - sun
+  - graph
 ---
 
 <header>
   <div class="container">
-    <h1>New research on how people find and use climate-change data</h1>
+    <h1>
+      <div>
+        {% for icon in page.header_icons %}
+        <img class="icon {{ icon }}" src="{{ site.baseurl }}/img/icons/{{ icon }}.svg">
+        {% endfor %}
+      </div>
+      New research on how people find and use climate-change data
+    </h1>
   </div>
 
   <nav>
