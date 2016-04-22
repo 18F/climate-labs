@@ -33,3 +33,12 @@ provides next steps—topics that would benefit from further research.
   greatest success, such a site should provide locally relevant
   data, and should focus on curating resources rather than
   cataloguing everything that’s available.
+
+![report cover]({{ site.baseurl }}/img/report-cover.png)
+
+[**Download the report** 2.3MB PDF]({{ site.baseur }}/download/report.pdf)
+
+### Methodology
+For more detailed information on our research approach, recruitment
+techniques, and interview protocol, please read our [methodology
+supplement]({{ site.baseurl }}/download/methodology.pdf).
