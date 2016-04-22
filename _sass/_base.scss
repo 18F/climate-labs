@@ -15,6 +15,7 @@ h1 {
 }
 
 header {
+  background-color: $dark-blue;
   background-image: url(../img/hero.jpg);
   background-repeat: no-repeat;
   background-position: center center;
@@ -52,19 +53,23 @@ nav {
 
   ul {
     display: block;
+    line-height: 1;
     list-style: none;
     margin-top: 0;
     margin-bottom: 0;
     padding: 1em 0 1em $left-gutter;
     text-align: left;
+    text-transform: uppercase;
 
     li {
       display: inline-block;
       list-style: none;
       margin: 0 2em 0 0;
 
-      &::before {
+      &::before,
+      &::after {
         content: "";
+        display: none;
       }
     }
   }
