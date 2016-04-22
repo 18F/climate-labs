@@ -78,8 +78,14 @@ nav {
   }
 
   a:link,
-  a:hover {
+  a:hover,
+  a:visited {
     color: $green;
+  }
+
+  a:hover {
+    color: $white;
+    text-decoration: none;
   }
 }
 
