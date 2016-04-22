@@ -1,35 +1,32 @@
 ---
 layout: default
-
-scripts:
-- vendor/document-register-element.js
-- vendor/x-tag.js
-- views/landing.js
+sections:
+- id: work
+  title: Our Work
+- id: report
+  title: Research Report
+- id: contact
+  title: Contact Us
 ---
 
 <header>
-  <h1>Climate prototype</h1>
+  <h1>New research on how people find and use climate-change data</h1>
 </header>
-<main>
-  <div id="search-form">
-    {% include location_search.html %}
-  </div>
 
-  <form method="get" id="query-form">
-    <div class="usa-width-one-half">
-      <label for="location">Enter the location you're concerned with:</label>
-      {% include location_search.html %}
-    </div>
-    <div class="usa-width-one-half">
-        <label for="topic-btns">What topic are you concerned about?</label>
-        <div id="topic-btns">
-          <button formaction="{{ site.baseurl }}/sealevel/">Sea-level change</button>
-          <button formaction="{{ site.baseurl }}/temperature/">Extreme temperature</button>
-          <button class="usa-button-disabled">Extreme precipitation</button>
-          <button class="usa-button-disabled">Average temperature</button>
-          <button class="usa-button-disabled">Average precipitation</button>
-          <button class="usa-button-disabled">Storm flooding</button>
-        </div>
-    </div>
-  </form>
+<nav>
+  <ul>
+  {% for section in page.sections %}
+    <li><a href="#{{ section.id }}">{{ section.title }}</a></li>
+  {% endfor %}
+  </ul>
+</nav>
+
+<main>
+  {% for section in page.sections %}
+  <section id="{{ section.id }}">
+    <h1>{{ section.title }}</h1>
+    {% capture content %}{% include {{ section.id }}.md %}{% endcapture %}
+    {{ content | markdownify }}
+  </section>
+  {% endfor %}
 </main>
