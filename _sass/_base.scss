@@ -151,7 +151,8 @@ section .container {
 
 // "What we found" grid
 #what-we-found + ul {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -164,9 +165,15 @@ section .container {
     padding: 0 0 1em ($icon-size + 1em);
     position: relative;
     margin: 0;
+    width: 50%;
+
+    @media all and (max-width: 800px) {
+      width: 100%;
+    }
 
     h3 {
       font-size: inherit;
+      margin-top: 0;
 
       &::before {
         content: "";
@@ -203,13 +210,49 @@ section .container {
 
 #report {
 
+  .container:after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+
+  /* to float the downlod button and methodology to the
+     right of the report cover image
+  */
+  ul ~ p,
+  h3#methodology {
+    float: right;
+    width: 48%;
+
+    @media all and (max-width: 450px) {
+      float: none;
+      width: 100%;
+    }
+  }
+
+  ul + p {
+    float: left;
+
+    @media all and (max-width: 450px) {
+      float: none;
+    }
+  }
+
+  h3#methodology {
+    clear: none;
+  }
+
   .cover {
     display: inline-block;
     background: $white;
     box-shadow: 0 2px 6px rgba(0, 0, 0, .5);
 
-    img {
-      display: inline-block;
+    @media all and (max-width: 450px) {
+      width: 100%;
+
+      & > img {
+        width: 100%;
+      }
     }
   }
 
