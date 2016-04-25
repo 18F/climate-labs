@@ -1,5 +1,5 @@
 Now more than ever, decision makers in the federal government and
-private industry need easy-to-find, locally relevant climate change
+private industry need easy-to-find, locally relevant climate-change
 data. Our research revealed that, while credible data are available,
 they can be hard to find, and they may not be tailorable to specific
 locations.
