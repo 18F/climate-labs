@@ -50,6 +50,7 @@ header_icons:
 
 <footer>
   <div class="container">
-    footer
+    {% capture footer %}{% include footer.md %}{% endcapture %}
+    {{ footer | markdownify }}
   </div>
 </footer>
