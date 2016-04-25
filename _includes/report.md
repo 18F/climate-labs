@@ -1,9 +1,9 @@
-We spoke to dozens of climate change decision makers to get the most
+We spoke to dozens of climate-change decision makers to get the most
 comprehensive picture we could of data availability and
 customizability. Our report covers the problems we addressed, our
 research goals, profiles of our user groups, a summary of our
 methods, and an in-depth discussion of our findings. It also
-provides next steps—topics that would benefit from further research.
+provides next steps — topics that would benefit from further research.
 
 ## What we found
 
