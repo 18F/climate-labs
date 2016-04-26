@@ -190,11 +190,11 @@ section .container {
   margin: 0;
 
   li {
-    $icon-size: 4em;
+    $icon-size: 3em;
 
     display: block;
     list-style: none;
-    padding: 0 0 1em ($icon-size + 1em);
+    padding: 0 0.5em 1em ($icon-size + 1.5em);
     position: relative;
     margin: 0;
     width: 50%;
