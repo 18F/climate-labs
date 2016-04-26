@@ -89,6 +89,34 @@ header {
 nav {
   background: #000;
   background: rgba(0, 0, 0, .8);
+  position: relative;
+
+  .flag-container {
+    display: flex;
+    flex-direction: row-reverse;
+    position: absolute;
+    right: 1em;
+    top: 40%;
+
+    img {
+      height: 20px;
+      width: 25px;
+    }
+
+    img:hover + p {
+      visibility: visible;
+    }
+
+    p {
+      color: white;
+      font-size: .8em;
+      margin: 0;
+      margin-right: 1em;
+      visibility: hidden;
+    }
+
+
+  }
 
   ul {
     display: block;
