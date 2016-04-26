@@ -314,6 +314,17 @@ section .container {
 footer {
   background: $dark-gray;
   color: $white;
+  text-align: center;
+
+  & > a {
+    display: inline-block;
+  }
+
+  img {
+    display: inline-block;
+    height: 4em;
+    margin: 0 0.5em 0.5em 0;
+  }
 }
 
 @media screen and (min-width: 800px) {
@@ -338,9 +349,17 @@ footer {
 
   }
 
-  section .container,
-  footer .container {
+  section,
+  footer {
     padding-left: $left-gutter;
   }
 
+  footer {
+    text-align: left;
+
+    img {
+      height: 8em;
+      margin: 0 1em 1em 0;
+    }
+  }
 }
