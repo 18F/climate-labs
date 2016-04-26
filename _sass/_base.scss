@@ -1,5 +1,35 @@
 @import 'variables';
 
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Helvetica', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 100;
+}
+
+h3:before {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 // clean up after the WDS list styles
 ul li {
   &::before,
@@ -81,6 +111,8 @@ nav {
   a:hover,
   a:visited {
     color: $green;
+    font-size: .8em;
+    letter-spacing: .1em;
   }
 
   a:hover {
@@ -172,7 +204,7 @@ section .container {
     }
 
     h3 {
-      font-size: inherit;
+      // font-size: inherit;
       margin-top: 0;
 
       &::before {
@@ -229,6 +261,10 @@ section .container {
       width: 100%;
     }
   }
+  
+  h3 + p {
+    margin-top: 0;
+  }
 
   ul + p {
     float: left;
@@ -263,9 +299,12 @@ section .container {
   background: $green;
   color: $black;
   display: block;
+  font-size: .8em;
+  letter-spacing: .05em;
   padding: 1em;
   text-align: center;
   text-decoration: none;
+  text-transform: uppercase;
 
   strong {
     display: block;
