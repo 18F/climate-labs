@@ -12,6 +12,26 @@ header_icons:
   - cloud
   - sun
   - graph
+
+downloads:
+- href: /download/report.pdf
+  text:
+    primary: Get the report
+    secondary: 2.3MB PDF
+  image:
+    href: /img/report-cover.png
+    alt: report cover
+- href: https://www.google.com
+  text:
+    primary: View the presentation
+    secondary: Google Slides
+  image:
+    href: /img/report-cover.png
+    alt: report cover
+- href: foo.html
+  text:
+    primary: See our methodology
+    secondary:
 ---
 
 <header>
@@ -42,6 +62,16 @@ header_icons:
     </ul>
   </nav>
 
+  <aside>
+    <h3>Downloads</h3>
+    <ul>
+      {% for download in page.downloads %}
+      <li>
+        <a href="{{ download.href | prepend: site.baseurl}}">{{ download.text.primary }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
 </header>
 
 <main>

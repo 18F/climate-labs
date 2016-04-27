@@ -183,6 +183,25 @@ section h1 {
   }
 }
 
+
+aside {
+  position: absolute;
+  top: $right-gutter * 3.75;
+  right: $right-gutter / 6;
+
+  @media all and (max-width: 1225px) {
+    top: 0;
+
+    h3:after {
+      content: 'YOOOO';
+    }
+
+    ul {
+      display: none;
+    }
+  }
+}
+
 #work h1 {
   border-color: $blue;
 
@@ -285,34 +304,48 @@ section .container {
     display: block;
   }
 
-  /* to float the downlod button and methodology to the
-     right of the report cover image
-  */
-  ul ~ p,
-  h3#methodology {
-    float: right;
-    width: 48%;
+  h3#methodology + p {
+    width: 50%;
 
     @media all and (max-width: 450px) {
-      float: none;
       width: 100%;
     }
   }
 
-  h3 + p {
-    margin-top: 0;
-  }
+  .downloads {
+    width: 100%;
 
-  ul + p {
-    float: left;
-
-    @media all and (max-width: 450px) {
-      float: none;
+    li {
+      display: block;
     }
-  }
 
-  h3#methodology {
-    clear: none;
+    li:after {
+      clear: both;
+      content: '';
+      display: block;
+    }
+
+    li + li {
+      margin-top: 3rem;
+    }
+
+    a {
+      width: 45%;
+
+      @media all and (max-width: 450px) {
+        width: 100%;
+      }
+    }
+
+    a + a {
+      float: right;
+      margin-left: 5%;
+
+      @media all and (max-width: 450px) {
+        margin-left: 0;
+        margin-top: 2em;
+      }
+    }
   }
 
   .cover {
