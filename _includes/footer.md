@@ -1,6 +1,7 @@
-This is an [open source] work by [18F], and is in the [public
-domain][license]. Our agency partners were [NASA], [NOAA], and the
-White House [Office of Science and Technology Policy][OSTP].
+This is an [open source] work by [18F] with agency partners at
+[NASA], [NOAA], and the White House [Office of Science and
+Technology Policy][OSTP]. As a work of the United States government,
+it is in the [public domain][license].
 
 [![18F]({{ site.baseurl }}/img/logos/18f-black.svg)][18F]
 [![NASA]({{ site.baseurl }}/img/logos/nasa.svg)][NASA]
