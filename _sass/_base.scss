@@ -60,6 +60,7 @@ header {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  position: relative;
 
   & > .container {
     padding: 2em 0;
@@ -84,11 +85,47 @@ header {
       }
     }
   }
+
+  .flag-container {
+    background-color: $dark-blue;
+    color: white;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+
+    p {
+      font-size: .8em;
+      margin: .1em;
+      margin-right: 1em;
+    }
+
+    @media all and (min-width: 1200px) {
+      background-color: transparent;
+      bottom: 2em;
+      position: absolute;
+      right: 1em;
+      z-index: 2;
+
+      img {
+        height: 16px;
+        width: 24px;
+      }
+
+      a:hover + p {
+        visibility: visible;
+      }
+
+      p {
+        visibility: hidden;
+      }
+    }
+  }
 }
 
 nav {
   background: #000;
   background: rgba(0, 0, 0, .8);
+  position: relative;
 
   ul {
     display: block;
@@ -261,7 +298,7 @@ section .container {
       width: 100%;
     }
   }
-  
+
   h3 + p {
     margin-top: 0;
   }
