@@ -99,11 +99,11 @@ nav {
     top: 40%;
 
     img {
-      height: 20px;
-      width: 25px;
+      height: 16px;
+      width: 24px;
     }
 
-    img:hover + p {
+    a:hover + p {
       visibility: visible;
     }
 
@@ -289,7 +289,7 @@ section .container {
       width: 100%;
     }
   }
-  
+
   h3 + p {
     margin-top: 0;
   }
