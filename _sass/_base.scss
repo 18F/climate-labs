@@ -316,6 +316,11 @@ footer {
   color: $white;
   text-align: center;
 
+  a:link,
+  a:visited {
+    color: $green;
+  }
+
   & > a {
     display: inline-block;
   }
