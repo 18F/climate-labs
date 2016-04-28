@@ -64,6 +64,10 @@ header {
 
   & > .container {
     padding: 2em 0;
+
+    @media all and (max-width:$mobile-width) {
+      padding: 0;
+    }
   }
 
   h1 {
@@ -127,6 +131,10 @@ nav {
   background: rgba(0, 0, 0, .8);
   position: relative;
 
+  @media all and (max-width: $mobile-width) {
+    background: rgba(0, 0, 0, .4);
+  }
+
   ul {
     display: block;
     line-height: 1;
@@ -189,15 +197,77 @@ aside {
   top: $right-gutter * 3.75;
   right: $right-gutter / 6;
 
-  @media all and (max-width: 1225px) {
-    top: 0;
+  @media all and (min-width: $mobile-width) and (max-width: 1200px) {
+    display: none;
+  }
 
-    h3:after {
-      content: 'YOOOO';
+  @media all and (max-width: $mobile-width) {
+    background-color: $blue;
+    margin-bottom: -1px;
+    padding: 2em 0;
+    position: relative;
+    right: auto;
+    top: auto;
+
+    h3 {
+      margin: 0;
+      margin-right: 2em;
+      text-align: right;
+
+      span {
+        align-items: center;
+        background-color: $white;
+        height: 2em;
+        border-radius: 2em;
+        display: flex;
+        float: right;
+        justify-content: center;
+        margin-left: 1em;
+        margin-top: -6px;
+        width: 2em;
+      }
+
+      span:after {
+        border: 3px solid $dark-blue;
+        border-top: none;
+        border-left: none;
+        content: "";
+        display: inline-block;
+        height: 10px;
+        margin-top: -5px;
+        transform: rotate(45deg);
+        width: 10px;
+      }
     }
 
     ul {
       display: none;
+    }
+
+    &.open {
+      background-color: $black;
+      color: $white;
+      padding-bottom: 0;
+
+      span:after {
+        margin-top: 0;
+        transform: rotate(-135deg);
+      }
+
+      ul {
+        display: block;
+        margin-top: 1.3em;
+        margin-bottom: 0;
+        width: 100%;
+      }
+
+      li {
+        background-color: $green;
+        display: block;
+        padding: 2em;
+        margin: 0;
+        width: 100%;
+      }
     }
   }
 }

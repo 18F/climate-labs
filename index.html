@@ -32,6 +32,9 @@ downloads:
   text:
     primary: See our methodology
     secondary:
+
+scripts:
+- main.js
 ---
 
 <header>
@@ -42,6 +45,17 @@ downloads:
     </a>
     <p>An official website of the U.S. government</p>
   </div>
+
+  <aside id="downloads">
+    <h3>Downloads<span id="caret"></span></h3>
+    <ul>
+      {% for download in page.downloads %}
+      <li>
+        <a href="{{ download.href | prepend: site.baseurl}}">{{ download.text.primary }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
 
   <div class="container">
     <h1>
@@ -61,17 +75,6 @@ downloads:
     {% endfor %}
     </ul>
   </nav>
-
-  <aside>
-    <h3>Downloads</h3>
-    <ul>
-      {% for download in page.downloads %}
-      <li>
-        <a href="{{ download.href | prepend: site.baseurl}}">{{ download.text.primary }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-  </aside>
 </header>
 
 <main>
