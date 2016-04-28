@@ -197,6 +197,22 @@ aside {
   top: $right-gutter * 3.75;
   right: $right-gutter / 6;
 
+  .download-text {
+    strong {
+      display: inline-block;
+      font-size: .9em;
+      font-weight: 400;
+    }
+
+    span {
+      display: none;
+    }
+  }
+
+  .download-image {
+    display: none;
+  }
+
   @media all and (min-width: $mobile-width) and (max-width: 1200px) {
     display: none;
   }
@@ -263,10 +279,37 @@ aside {
 
       li {
         background-color: $green;
+        border-bottom: 2px solid $black;
         display: block;
-        padding: 2em;
         margin: 0;
+        min-height: 9em;
+        padding: 1.7em;
         width: 100%;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        a {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .download-text,
+        .download-image {
+          display: block;
+        }
+
+        .download-text {
+          span {
+            display: block;
+          }
+        }
+
+        img {
+          width: 70px;
+        }
       }
     }
   }

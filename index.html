@@ -51,7 +51,17 @@ scripts:
     <ul>
       {% for download in page.downloads %}
       <li>
-        <a href="{{ download.href | prepend: site.baseurl}}">{{ download.text.primary }}</a>
+        <a href="{{ download.href | prepend: site.baseurl }}">
+          <div class="download-text">
+            <strong>{{ download.text.primary }}</strong>
+            <span>{{ download.text.secondary }}</span>
+          </div>
+          {% if download.image %}
+          <div class="download-image">
+            <img src="{{ download.image.href | prepend: site.baseurl }}" alt="{{ download.image.alt }}">
+          </div>
+          {% endif %}
+        </a>
       </li>
       {% endfor %}
     </ul>
