@@ -10,10 +10,8 @@
 
   document.body.addEventListener('click', function(e) {
     if (e.target.matches('aside h3 span')) {
-      console.log('yo');
       var downloadEl = document.querySelector('#downloads');
-      var isOpen = hasClass(downloadEl, 'open');
-      if (isOpen) {
+      if (hasClass(downloadEl, 'open')) {
         return downloadEl.classList.remove('open');
       }
       return downloadEl.classList.add('open');
