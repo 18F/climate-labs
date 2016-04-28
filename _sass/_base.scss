@@ -93,8 +93,14 @@ header {
     flex-direction: row-reverse;
     justify-content: center;
 
+    img {
+      height: 12px;
+      width: 19px;
+    }
+
     p {
       font-size: .8em;
+      font-weight: 100;
       margin: .1em;
       margin-right: 1em;
     }
@@ -103,12 +109,12 @@ header {
       background-color: transparent;
       bottom: 2em;
       position: absolute;
-      right: 1em;
+      right: 2em;
       z-index: 2;
 
       img {
         height: 16px;
-        width: 24px;
+        width: 26px;
       }
 
       a:hover + p {
