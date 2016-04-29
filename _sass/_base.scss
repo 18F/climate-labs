@@ -431,6 +431,12 @@ section .container {
     }
   }
 
+  ul p,
+  #methodology ~ p {
+    font-size: .9em;
+    font-weight: 100;
+  }
+
   .downloads {
     width: 100%;
 
