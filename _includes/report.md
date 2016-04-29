@@ -34,13 +34,10 @@ provides next steps — topics that would benefit from further research.
   data, and should focus on curating resources rather than
   cataloguing everything that’s available.
 
-<a class="cover" href="{{ site.baseurl }}/download/report.pdf">
-  <img src="{{ site.baseurl }}/img/report-cover.png" alt="report cover">
-</a>
 
-<a class="button" href="{{ site.baseurl }}/download/report.pdf">
-  <strong>Download the report</strong> 2.3MB PDF
-</a>
+## Downloads
+
+{% include report_downloads.html %}
 
 ### Methodology
 For more detailed information on our research approach, recruitment

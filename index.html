@@ -12,6 +12,29 @@ header_icons:
   - cloud
   - sun
   - graph
+
+downloads:
+- href: /download/report.pdf
+  text:
+    primary: Get the report
+    secondary: 2.3MB PDF
+  image:
+    href: /img/report-cover.png
+    alt: report cover
+- href: https://www.google.com
+  text:
+    primary: View the presentation
+    secondary: Google Slides
+  image:
+    href: /img/report-cover.png
+    alt: report cover
+- href: foo.html
+  text:
+    primary: See our methodology
+    secondary:
+
+scripts:
+- main.js
 ---
 
 <header>
@@ -22,6 +45,27 @@ header_icons:
     </a>
     <p>An official website of the U.S. government</p>
   </div>
+
+  <aside id="downloads">
+    <h3>Downloads<span id="caret"></span></h3>
+    <ul>
+      {% for download in page.downloads %}
+      <li>
+        <a href="{{ download.href | prepend: site.baseurl }}">
+          <div class="download-text">
+            <strong>{{ download.text.primary }}</strong>
+            <span>{{ download.text.secondary }}</span>
+          </div>
+          {% if download.image %}
+          <div class="download-image">
+            <img src="{{ download.image.href | prepend: site.baseurl }}" alt="{{ download.image.alt }}">
+          </div>
+          {% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
 
   <div class="container">
     <h1>
@@ -41,7 +85,6 @@ header_icons:
     {% endfor %}
     </ul>
   </nav>
-
 </header>
 
 <main>
