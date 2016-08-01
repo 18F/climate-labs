@@ -535,6 +535,10 @@ footer {
     height: 4em;
     margin: 0 0.5em 0.5em 0;
   }
+
+  p + p {
+    margin-top: 2em;
+  }
 }
 
 @media screen and (min-width: 800px) {
