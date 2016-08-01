@@ -30,6 +30,11 @@ h3 {
   text-transform: uppercase;
 }
 
+a:hover,
+a:active {
+  text-decoration: none;
+}
+
 // clean up after the WDS list styles
 ul li {
   &::before,
@@ -96,6 +101,11 @@ header {
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
+    padding: 0.625em 1.875em;
+
+    font-family: Lato, "Helvetica Neue", Helvetica, arial, sans-serif;
+    font-size: 12px;
+    font-weight: 200;
 
     img {
       height: 12px;
@@ -208,6 +218,10 @@ aside {
       display: inline-block;
       font-size: .9em;
       font-weight: 400;
+    }
+
+    strong:hover {
+      text-decoration: underline;
     }
 
     span {
@@ -456,6 +470,10 @@ section .container {
 
     a {
       width: 45%;
+
+      &:hover {
+        text-decoration: underline;
+      }
 
       @media all and (max-width: 450px) {
         width: 100%;
