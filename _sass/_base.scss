@@ -492,6 +492,9 @@ section .container {
 // report download "button"
 .button {
   background: $green;
+  border-color: transparent;;
+  border-style: solid;
+  border-width: 3px;
   color: $black;
   display: block;
   font-size: .8em;
@@ -500,6 +503,13 @@ section .container {
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+
+  &:hover {
+    border-color: $black;
+    box-sizing: border-box;
+    color: $black;
+    text-decoration: none;
+  }
 
   strong {
     display: block;
