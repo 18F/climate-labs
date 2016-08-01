@@ -502,7 +502,6 @@ section .container {
   padding: 1em;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
 
   &:hover {
     border-color: $black;
@@ -513,6 +512,7 @@ section .container {
 
   strong {
     display: block;
+    text-transform: uppercase;
   }
 }
 
