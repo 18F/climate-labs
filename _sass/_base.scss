@@ -205,6 +205,10 @@ section h1 {
     right: 100%;
     top: 100%;
     width: $icon-size;
+
+    @media all and (max-width: 1150px) {
+      display: none;
+    }
   }
 }
 
@@ -578,7 +582,7 @@ footer {
   }
 
   nav ul {
-    padding: 2em 0 2em $left-gutter;
+    padding: 2em 0;
   }
 
   section {
@@ -586,11 +590,6 @@ footer {
     padding-bottom: 5em;
     padding-left: 0;
 
-  }
-
-  section,
-  footer {
-    padding-left: $left-gutter;
   }
 
   footer {
