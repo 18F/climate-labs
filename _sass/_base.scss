@@ -25,9 +25,15 @@ h3:before {
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 700;
+  letter-spacing: .1rem;
   text-transform: uppercase;
+}
+
+a:hover,
+a:active {
+  text-decoration: none;
 }
 
 // clean up after the WDS list styles
@@ -71,15 +77,15 @@ header {
   }
 
   h1 {
-    background: $blue;
+    background: $slighty-transparent-blue;
     color: $black;
     font-size: 2rem;
     padding: 1em;
     position: relative;
 
     .icon {
-      width: 2em;
-      height: 2em;
+      width: 2.3em;
+      height: 2.3em;
       margin-right: 0.3em;
 
       // the graph needs to be wider because
@@ -91,11 +97,16 @@ header {
   }
 
   .flag-container {
-    background-color: $dark-blue;
+    background-color: $medium-blue;
     color: white;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
+    padding: 0.625em 1.875em;
+
+    font-family: Lato, "Helvetica Neue", Helvetica, arial, sans-serif;
+    font-size: 14px;
+    font-weight: 200;
 
     img {
       height: 12px;
@@ -194,13 +205,17 @@ section h1 {
     right: 100%;
     top: 100%;
     width: $icon-size;
+
+    @media all and (max-width: 1150px) {
+      display: none;
+    }
   }
 }
 
 
 aside {
   position: absolute;
-  top: $right-gutter * 3.75;
+  top: $right-gutter * 3.7;
   right: $right-gutter / 6;
 
   .download-text {
@@ -208,6 +223,10 @@ aside {
       display: inline-block;
       font-size: .9em;
       font-weight: 400;
+    }
+
+    strong:hover {
+      text-decoration: underline;
     }
 
     span {
@@ -423,6 +442,11 @@ section .container {
     display: block;
   }
 
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
   h3#methodology + p {
     width: 50%;
 
@@ -435,6 +459,7 @@ section .container {
   #methodology ~ p {
     font-size: .9em;
     font-weight: 100;
+    margin-top: 0;
   }
 
   .downloads {
@@ -456,6 +481,10 @@ section .container {
 
     a {
       width: 45%;
+
+      &:hover {
+        text-decoration: underline;
+      }
 
       @media all and (max-width: 450px) {
         width: 100%;
@@ -492,6 +521,9 @@ section .container {
 // report download "button"
 .button {
   background: $green;
+  border-color: transparent;;
+  border-style: solid;
+  border-width: 3px;
   color: $black;
   display: block;
   font-size: .8em;
@@ -499,10 +531,17 @@ section .container {
   padding: 1em;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
+
+  &:hover {
+    border-color: $black;
+    box-sizing: border-box;
+    color: $black;
+    text-decoration: none;
+  }
 
   strong {
     display: block;
+    text-transform: uppercase;
   }
 }
 
@@ -525,6 +564,10 @@ footer {
     height: 4em;
     margin: 0 0.5em 0.5em 0;
   }
+
+  p + p {
+    margin-top: 2em;
+  }
 }
 
 @media screen and (min-width: 800px) {
@@ -534,24 +577,18 @@ footer {
   }
 
   header h1 {
-    padding: 4em 1.5em 1.5em;
+    padding: 3.5em 1.5em 1.5em;
     width: 50%;
   }
 
   nav ul {
-    padding: 2em 0 2em $left-gutter;
+    padding: 2em 0;
   }
 
   section {
     padding-top: 5em;
     padding-bottom: 5em;
     padding-left: 0;
-
-  }
-
-  section,
-  footer {
-    padding-left: $left-gutter;
   }
 
   footer {
