@@ -105,7 +105,7 @@ header {
     padding: 0.625em 1.875em;
 
     font-family: Lato, "Helvetica Neue", Helvetica, arial, sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 200;
 
     img {
@@ -215,7 +215,7 @@ section h1 {
 
 aside {
   position: absolute;
-  top: $right-gutter * 3.75;
+  top: $right-gutter * 3.7;
   right: $right-gutter / 6;
 
   .download-text {
@@ -589,7 +589,6 @@ footer {
     padding-top: 5em;
     padding-bottom: 5em;
     padding-left: 0;
-
   }
 
   footer {
