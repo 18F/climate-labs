@@ -1,35 +1,108 @@
 ---
 layout: default
+sections:
+- id: work
+  title: Our Work
+- id: report
+  title: Research Report
+- id: contact
+  title: Contact Us
+
+header_icons:
+  - cloud
+  - sun
+  - graph
+
+downloads:
+- href: /download/report.pdf
+  text:
+    primary: Get the report
+    secondary: 2.3MB PDF
+  image:
+    href: /img/report-cover.png
+    alt: report cover
+- href: foo.html
+  text:
+    primary: See our methodology
+    secondary:
 
 scripts:
-- vendor/document-register-element.js
-- vendor/x-tag.js
-- views/landing.js
+- main.js
 ---
 
+<!-- - href: https://www.google.com
+  text:
+    primary: View the presentation
+    secondary: Google Slides
+  image:
+    href: /img/report-cover.png
+    alt: report cover -->
+
 <header>
-  <h1>Climate prototype</h1>
-</header>
-<main>
-  <div id="search-form">
-    {% include location_search.html %}
+
+  <div class="flag-container">
+    <a href="https://18f.gsa.gov">
+      <img class="usa-flag" src="img/us_flag_large.png">
+    </a>
+    <p>An official website of the U.S. government</p>
   </div>
 
-  <form method="get" id="query-form">
-    <div class="usa-width-one-half">
-      <label for="location">Enter the location you're concerned with:</label>
-      {% include location_search.html %}
+  <aside id="downloads">
+    <h3>Downloads<span id="caret"></span></h3>
+    <ul>
+      {% for download in page.downloads %}
+      <li>
+        <a href="{{ download.href | prepend: site.baseurl }}">
+          <div class="download-text">
+            <strong>{{ download.text.primary }}</strong>
+            <span>{{ download.text.secondary }}</span>
+          </div>
+          {% if download.image %}
+          <div class="download-image">
+            <img src="{{ download.image.href | prepend: site.baseurl }}" alt="{{ download.image.alt }}">
+          </div>
+          {% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <div class="container">
+    <h1>
+      <div>
+        {% for icon in page.header_icons %}
+        <img class="icon {{ icon }}" src="{{ site.baseurl }}/img/icons/{{ icon }}.svg">
+        {% endfor %}
+      </div>
+      New research on how people find and use climate-change data
+    </h1>
+  </div>
+
+  <nav>
+    <ul class="container">
+    {% for section in page.sections %}
+      <li><a href="#{{ section.id }}">{{ section.title }}</a></li>
+    {% endfor %}
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% for section in page.sections %}
+  <section id="{{ section.id }}">
+    <div class="container">
+      <h1>{{ section.title }}</h1>
+      {% capture content %}{% include {{ section.id }}.md %}{% endcapture %}
+      {{ content | markdownify }}
     </div>
-    <div class="usa-width-one-half">
-        <label for="topic-btns">What topic are you concerned about?</label>
-        <div id="topic-btns">
-          <button formaction="{{ site.baseurl }}/sealevel/">Sea-level change</button>
-          <button formaction="{{ site.baseurl }}/temperature/">Extreme temperature</button>
-          <button class="usa-button-disabled">Extreme precipitation</button>
-          <button class="usa-button-disabled">Average temperature</button>
-          <button class="usa-button-disabled">Average precipitation</button>
-          <button class="usa-button-disabled">Storm flooding</button>
-        </div>
-    </div>
-  </form>
+  </section>
+  {% endfor %}
 </main>
+
+<footer>
+  <div class="container">
+    {% capture footer %}{% include footer.md %}{% endcapture %}
+    {{ footer | markdownify }}
+  </div>
+</footer>
