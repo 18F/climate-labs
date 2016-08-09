@@ -42,4 +42,4 @@ provides next steps — topics that would benefit from further research.
 ### Methodology
 For more detailed information on our research approach, recruitment
 techniques, and interview protocol, please read our [methodology
-supplement]({{ site.baseurl }}/download/methodology.pdf).
+supplement]({{ site.baseurl }}/download/methodology-supplement.pdf).
