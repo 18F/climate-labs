@@ -3,7 +3,11 @@
     {% if download.image %}
     <li>
       <a class="cover" href="{{ download.href | prepend: site.baseurl }}">
-        <img src="{{ download.image.href | prepend: site.baseurl }}" alt="{{ download.image.alt }}">
+        <img alt="{{ download.image.alt }}"
+          src="{{ download.image.href | prepend: site.baseurl }}"
+          {% if download.image.href_retina %}
+            srcset="{{ download.image.href_retina }} 2x"
+          {% endif %} >
       </a>
 
       <a class="button" href="{{ download.href | prepend: site.baseurl }}">
