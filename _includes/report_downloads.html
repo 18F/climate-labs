@@ -6,7 +6,7 @@
         <img alt="{{ download.image.alt }}"
           src="{{ download.image.href | prepend: site.baseurl }}"
           {% if download.image.href_retina %}
-            srcset="{{ download.image.href_retina }} 2x"
+            srcset="{{ download.image.href_retina | prepend: site.baseurl }} 2x"
           {% endif %} >
       </a>
 
