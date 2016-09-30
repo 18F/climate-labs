@@ -8,6 +8,14 @@ sections:
 - id: contact
   title: Contact Us
 
+sections_mobile:
+- id: work
+  title: Work
+- id: report
+  title: Report
+- id: contact
+  title: Contact
+
 header_icons:
   - cloud
   - sun
@@ -81,12 +89,19 @@ scripts:
   </div>
 
   <nav>
-    <ul class="container">
+    <ul class="container nav-concise">
+    {% for section in page.sections_mobile %}
+      <li><a href="#{{ section.id }}">{{ section.title }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <ul class="container nav-verbose">
     {% for section in page.sections %}
       <li><a href="#{{ section.id }}">{{ section.title }}</a></li>
     {% endfor %}
     </ul>
   </nav>
+
 </header>
 
 <main>

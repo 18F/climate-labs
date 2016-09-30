@@ -148,8 +148,20 @@ nav {
   background: rgba(0, 0, 0, .8);
   position: relative;
 
+  .nav-concise {
+    display: none;
+  }
+
   @media all and (max-width: $mobile-width) {
-    background: rgba(0, 0, 0, .4);
+    background: rgba(0, 0, 0, .6);
+
+    .nav-concise {
+      display: inline-block;
+    }
+
+    .nav-verbose {
+      display: none;
+    }
   }
 
   ul {
