@@ -10,6 +10,15 @@ title: Climate Labs Microsite
 
 email: climate-data-user-study@gsa.gov
 
+# Exclude files
+exclude:
+- Gemfile
+- Gemfile.lock
+- README.md
+- LICENSE
+- package.json
+- node_modules
+
 # this means to ignore newlines until "baseurl:"
 description: ''
 
